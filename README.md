@@ -161,3 +161,4 @@ python -m cnmaps_data.checker /path/to/your-data-package/cnmaps_data
 ## 相关文档
 
 - [开发者手册](docs/developer-guide.md)
+- [更新日志](CHANGELOG.md)
