@@ -1,7 +1,7 @@
 {
   "name": "cnmaps-data",
   "provider": "official",
-  "version": "1.4.0",
+  "version": "1.1.0",
   "cnmaps_data_api_version": "1",
   "datasets": {
     "administrative": {
