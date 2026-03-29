@@ -58,6 +58,13 @@ def _ensure_output_dir(package_root: Path) -> Path:
     return out_dir
 
 
+def _load_country_name_map(package_root: Path) -> dict[str, dict[str, str]]:
+    mapping_path = package_root / "data" / "reference" / "country-name-map.json"
+    with mapping_path.open(encoding="utf-8") as f:
+        items = json.load(f)
+    return {item["iso3"]: item for item in items}
+
+
 def _load_china_geometry(package_root: Path):
     china_path = package_root / "data" / "datasets" / "administrative" / "amap" / "land" / "100000.geojson"
     with china_path.open(encoding="utf-8") as f:
@@ -84,6 +91,16 @@ def _apply_china_difference(gdf: gpd.GeoDataFrame, china_geom) -> gpd.GeoDataFra
     return gdf
 
 
+def _apply_chinese_names(gdf: gpd.GeoDataFrame, country_name_map: dict[str, dict[str, str]]) -> gpd.GeoDataFrame:
+    gdf = gdf.copy()
+    gdf = gdf.rename(columns={"name": "name_en"})
+    missing = sorted({iso3 for iso3 in gdf["iso3"] if iso3 not in country_name_map})
+    if missing:
+        raise KeyError(f"Missing Chinese country names for ISO3 codes: {', '.join(missing)}")
+    gdf["name"] = [country_name_map[iso3]["name"] for iso3 in gdf["iso3"]]
+    return gdf
+
+
 def _write_geojson(output_dir: Path, gdf: gpd.GeoDataFrame) -> list[tuple[str, str, str]]:
     records = []
     for row in gdf.itertuples():
@@ -93,7 +110,7 @@ def _write_geojson(output_dir: Path, gdf: gpd.GeoDataFrame) -> list[tuple[str, s
             "properties": {
                 "iso3": row.iso3,
                 "name": row.name,
-                "name_en": row.name,
+                "name_en": row.name_en,
                 "source": SOURCE_NAME,
                 "kind": KIND_NAME,
                 "level": LEVEL_NAME,
@@ -137,8 +154,11 @@ def main() -> int:
     package_root = Path(args.package_root).expanduser().resolve()
     world_shp = Path(args.world_shp).expanduser().resolve()
 
+    country_name_map = _load_country_name_map(package_root)
     china_geom = _load_china_geometry(package_root)
-    gdf = _apply_china_difference(_load_member_states(world_shp), china_geom)
+    gdf = _load_member_states(world_shp)
+    gdf = _apply_china_difference(gdf, china_geom)
+    gdf = _apply_chinese_names(gdf, country_name_map)
     output_dir = _ensure_output_dir(package_root)
     records = _write_geojson(output_dir, gdf)
     _update_index_db(package_root, records)

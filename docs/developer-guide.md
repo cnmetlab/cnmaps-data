@@ -236,6 +236,10 @@ CREATE TABLE ADMINISTRATIVE
 
 如果你的国外国家级数据需要与某一套中国边界口径配套使用，建议像官方 `world-countries` 一样，在写出 GeoJSON 前先执行一次针对中国边界的几何扣除，避免与中国边界产生重叠。
 
+官方 `cnmaps-data` 当前统一维护了一份国家中文名映射表，见：
+
+- [国家名称与 ISO3 映射表](country-name-map.md)
+
 ### path 规则
 
 `path` 应写成相对于数据集根目录或带数据集前缀的相对路径。

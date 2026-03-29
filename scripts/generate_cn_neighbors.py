@@ -13,22 +13,22 @@ from shapely import snap
 from shapely.geometry import mapping, shape
 
 
-NEIGHBOR_COUNTRIES = {
-    "AFG": "阿富汗",
-    "BTN": "不丹",
-    "IND": "印度",
-    "KAZ": "哈萨克斯坦",
-    "KGZ": "吉尔吉斯斯坦",
-    "LAO": "老挝",
-    "MNG": "蒙古国",
-    "MMR": "缅甸",
-    "NPL": "尼泊尔",
-    "PAK": "巴基斯坦",
-    "PRK": "朝鲜",
-    "RUS": "俄罗斯",
-    "TJK": "塔吉克斯坦",
-    "VNM": "越南",
-}
+NEIGHBOR_COUNTRIES = (
+    "AFG",
+    "BTN",
+    "IND",
+    "KAZ",
+    "KGZ",
+    "LAO",
+    "MNG",
+    "MMR",
+    "NPL",
+    "PAK",
+    "PRK",
+    "RUS",
+    "TJK",
+    "VNM",
+)
 
 MANUAL_DISPUTED_ASSIGNMENTS = {
     "Jammu-Kashmir": "PAK",
@@ -61,6 +61,13 @@ def _load_china_geometry(package_root: Path):
     china_path = package_root / "data" / "datasets" / "administrative" / "amap" / "land" / "100000.geojson"
     with china_path.open(encoding="utf-8") as f:
         return shape(json.load(f))
+
+
+def _load_country_name_map(package_root: Path) -> dict[str, dict[str, str]]:
+    mapping_path = package_root / "data" / "reference" / "country-name-map.json"
+    with mapping_path.open(encoding="utf-8") as f:
+        items = json.load(f)
+    return {item["iso3"]: item for item in items}
 
 
 def _ensure_output_dir(package_root: Path) -> Path:
@@ -97,12 +104,18 @@ def _build_adjusted_member_geometries(gdf: gpd.GeoDataFrame, china_geom):
     return adjusted, english_names
 
 
-def _write_geojson_files(output_dir: Path, adjusted: dict, english_names: dict) -> list[tuple[str, str]]:
+def _write_geojson_files(
+    output_dir: Path,
+    adjusted: dict,
+    english_names: dict,
+    country_name_map: dict[str, dict[str, str]],
+) -> list[tuple[str, str]]:
     records = []
-    for iso3, country_cn in sorted(NEIGHBOR_COUNTRIES.items()):
+    for iso3 in sorted(NEIGHBOR_COUNTRIES):
         geom = adjusted[iso3]
         if geom.is_empty:
             continue
+        country_cn = country_name_map[iso3]["name"]
 
         out_fp = output_dir / f"{iso3}.geojson"
         payload = {
@@ -160,11 +173,12 @@ def main() -> int:
     package_root = Path(args.package_root).expanduser().resolve()
     world_shp = Path(args.world_shp).expanduser().resolve()
 
+    country_name_map = _load_country_name_map(package_root)
     china_geom = _load_china_geometry(package_root)
     world_gdf = _load_world(world_shp)
     adjusted, english_names = _build_adjusted_member_geometries(world_gdf, china_geom)
     output_dir = _ensure_output_dir(package_root)
-    records = _write_geojson_files(output_dir, adjusted, english_names)
+    records = _write_geojson_files(output_dir, adjusted, english_names, country_name_map)
     _update_index_db(package_root, records)
 
     print(f"Generated {len(records)} cn-neighbors records into {output_dir}")

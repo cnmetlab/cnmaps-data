@@ -33,7 +33,7 @@
 关于 `world-countries`：
 
 - 它只提供“国”一级边界。
-- 当前国家名称沿用世界边界源数据中的英文国名。
+- 当前数据库中的国家名称统一使用中文名，GeoJSON 中同时保留 `name_en` 英文名。
 - 它不包含中国，也不包含已经在 `cn-neighbors` 中单独处理的邻国。
 - 它在写出前会统一扣除 `cnmaps-data` 当前中国边界所覆盖的几何区域，以避免与中国口径边界产生重叠。
 
@@ -69,6 +69,7 @@ pip install cnmaps
 如果你希望开发自己的 `cnmaps` 数据包，请优先阅读：
 
 - [开发者手册](docs/developer-guide.md)
+- [国家名称与 ISO3 映射表](docs/country-name-map.md)
 
 这份文档里会说明：
 
