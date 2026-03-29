@@ -210,6 +210,20 @@ CREATE TABLE ADMINISTRATIVE
 - `source`: 数据源，如 `高德`
 - `kind`: 数据类型，如 `陆地/海域` 等
 
+### 关于国外国家级数据
+
+如果你的数据包中同时包含中国行政区与国外边界，建议不要把国外数据强行套入中国式的“省 / 市 / 区县”层级。
+
+对于国外国家级边界，推荐写法是：
+
+- `country`: 国家名称
+- `province`: `NULL`
+- `city`: `NULL`
+- `district`: `NULL`
+- `level`: `国`
+
+官方 `cnmaps-data` 中新增的 `cn-neighbors` 就遵循这一规则。
+
 ### path 规则
 
 `path` 应写成相对于数据集根目录或带数据集前缀的相对路径。
