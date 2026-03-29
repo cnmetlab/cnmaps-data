@@ -1,6 +1,6 @@
 # cnmaps-data
 
-![cnmaps-data globe](docs/assets/world-tech-globe-v4.png)
+<img src="docs/assets/world-tech-globe-v4.png" alt="cnmaps-data globe" width="160" />
 
 `cnmaps-data` 是 `cnmaps` 的官方数据包，用于承载与 `cnmaps` 配套的边界数据、索引数据和样例数据。
 
