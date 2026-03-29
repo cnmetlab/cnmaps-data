@@ -18,6 +18,7 @@
   - 当前包含：
     - `amap`：高德来源的中国行政区边界
     - `cn-neighbors`：基于中国官方口径边界与世界国界数据派生的邻国国家级边界
+    - `world-countries`：除中国及 `cn-neighbors` 外的其他世界国家级边界
 - 地理边界数据
   - 数据根目录：`cnmaps_data/data/datasets/geography/`
 - 样例数据
@@ -28,6 +29,12 @@
 - 它只提供“国”一级边界，不下探到邻国的省州级行政区。
 - 它的几何是基于 `cnmaps-data` 中的中国边界，结合外部世界边界源数据裁剪/派生得到。
 - 这是一套带明确口径说明的派生数据，不应与国际通行的中立边界数据混淆。
+
+关于 `world-countries`：
+
+- 它只提供“国”一级边界。
+- 当前国家名称沿用世界边界源数据中的英文国名。
+- 它不包含中国，也不包含已经在 `cn-neighbors` 中单独处理的邻国。
 
 ## 与 cnmaps 的关系
 
@@ -82,6 +89,12 @@ python -m build
 
 ```bash
 python scripts/generate_cn_neighbors.py --world-shp /path/to/world-administrative-boundaries.shp
+```
+
+如果需要生成其他世界国家级边界，可使用：
+
+```bash
+python scripts/generate_world_countries.py --world-shp /path/to/world-administrative-boundaries.shp
 ```
 
 构建结果会包含：

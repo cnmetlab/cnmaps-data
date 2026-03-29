@@ -224,6 +224,16 @@ CREATE TABLE ADMINISTRATIVE
 
 官方 `cnmaps-data` 中新增的 `cn-neighbors` 就遵循这一规则。
 
+如果你要加入不与中国接壤的其他国家，推荐单独放在类似 `world-countries` 这样的 source 下：
+
+- `country`: 国家名称
+- `province`: `NULL`
+- `city`: `NULL`
+- `district`: `NULL`
+- `level`: `国`
+
+官方 `cnmaps-data` 当前也采用这一方式承载非邻国的世界国家级边界。
+
 ### path 规则
 
 `path` 应写成相对于数据集根目录或带数据集前缀的相对路径。
