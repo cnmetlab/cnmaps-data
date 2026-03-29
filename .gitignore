@@ -152,6 +152,19 @@ dmypy.json
 # Cython debug symbols
 cython_debug/
 
+# Local tooling / packaging
+.DS_Store
+*.orig
+dist/
+build/
+*.egg-info/
+pip-wheel-metadata/
+
+# Local test data / reports
+.coverage
+.coverage.*
+htmlcov/
+
 # PyCharm
 #  JetBrains specific template is maintained in a separate JetBrains.gitignore that can
 #  be found at https://github.com/github/gitignore/blob/main/Global/JetBrains.gitignore
