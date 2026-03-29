@@ -5,7 +5,8 @@ description = "Official data package for cnmaps"
 authors = ["Clarmy <clarmyleewt@gmail.com>"]
 license = "MIT"
 readme = "README.md"
-homepage = "https://github.com/cnmetlab/cnmaps"
+homepage = "https://github.com/cnmetlab/cnmaps-data"
+repository = "https://github.com/cnmetlab/cnmaps-data"
 packages = [{ include = "cnmaps_data" }]
 include = [
     { path = "cnmaps_data/manifest.json", format = ["sdist", "wheel"] },
