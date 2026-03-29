@@ -210,6 +210,42 @@ CREATE TABLE ADMINISTRATIVE
 - `source`: 数据源，如 `高德`
 - `kind`: 数据类型，如 `陆地/海域` 等
 
+### 关于国外国家级数据
+
+如果你的数据包中同时包含中国行政区与国外边界，建议不要把国外数据强行套入中国式的“省 / 市 / 区县”层级。
+
+对于国外国家级边界，推荐写法是：
+
+- `country`: 国家名称
+- `province`: `NULL`
+- `city`: `NULL`
+- `district`: `NULL`
+- `level`: `国`
+
+官方 `cnmaps-data` 中新增的 `cn-neighbors` 就遵循这一规则。
+
+如果你要加入不与中国接壤的其他国家，推荐单独放在类似 `world-countries` 这样的 source 下：
+
+- `country`: 国家名称
+- `province`: `NULL`
+- `city`: `NULL`
+- `district`: `NULL`
+- `level`: `国`
+
+官方 `cnmaps-data` 当前也采用这一方式承载非邻国的世界国家级边界。
+
+如果你的国外国家级数据需要与某一套中国边界口径配套使用，建议像官方 `world-countries` 一样，在写出 GeoJSON 前先执行一次针对中国边界的几何扣除，避免与中国边界产生重叠。
+
+官方 `cnmaps-data` 当前统一维护了一份国家中文名映射表，见：
+
+- [国家名称与 ISO3 映射表](country-name-map.md)
+
+推荐做法是：
+
+- GeoJSON 与 SQLite 中直接保存最终中文名
+- 映射表只作为维护和批量更新辅助资料
+- 通过单独脚本回写名称，而不是让主生成脚本强依赖映射表
+
 ### path 规则
 
 `path` 应写成相对于数据集根目录或带数据集前缀的相对路径。

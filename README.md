@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="docs/assets/world-tech-globe-v4.png" alt="cnmaps-data globe" width="160" />
+</p>
+
 # cnmaps-data
 
 `cnmaps-data` 是 `cnmaps` 的官方数据包，用于承载与 `cnmaps` 配套的边界数据、索引数据和样例数据。
@@ -15,10 +19,30 @@
 - 行政区边界数据
   - 索引库：`cnmaps_data/data/index/administrative.db`
   - 数据根目录：`cnmaps_data/data/datasets/administrative/`
+  - 当前包含：
+    - `amap`：高德来源的中国行政区边界
+    - `cn-neighbors`：基于中国官方口径边界与世界国界数据派生的邻国国家级边界
+    - `world-countries`：除中国及 `cn-neighbors` 外的其他世界国家级边界
 - 地理边界数据
   - 数据根目录：`cnmaps_data/data/datasets/geography/`
 - 样例数据
   - 数据根目录：`cnmaps_data/data/datasets/sample/`
+
+关于 `cn-neighbors`：
+
+- 它只提供“国”一级边界，不下探到邻国的省州级行政区。
+- 它的几何是基于 `cnmaps-data` 中的中国边界，结合外部世界边界源数据裁剪/派生得到。
+- 这是一套带明确口径说明的派生数据，不应与国际通行的中立边界数据混淆。
+
+关于 `world-countries`：
+
+- 它只提供“国”一级边界。
+- 当前数据库中的国家名称统一使用中文名，GeoJSON 中同时保留 `name_en` 英文名。
+- 它不包含中国，也不包含已经在 `cn-neighbors` 中单独处理的邻国。
+- 它也不会以国家级记录的形式单独收录台湾、香港、澳门。
+- 它在写出前会统一扣除 `cnmaps-data` 当前中国边界所覆盖的几何区域，以避免与中国口径边界产生重叠。
+- 中文名映射表只是维护辅助资料；最终名称仍直接写入 SQLite 和 GeoJSON 产物中。
+- 除主权国家外，它现在也纳入了一批带 `iso3` 的海外领地/属地记录，例如格陵兰。
 
 ## 与 cnmaps 的关系
 
@@ -52,6 +76,7 @@ pip install cnmaps
 如果你希望开发自己的 `cnmaps` 数据包，请优先阅读：
 
 - [开发者手册](docs/developer-guide.md)
+- [国家名称与 ISO3 映射表](docs/country-name-map.md)
 
 这份文档里会说明：
 
@@ -67,6 +92,26 @@ pip install cnmaps
 
 ```bash
 python -m build
+```
+
+如果需要重建 `cn-neighbors` 数据，可使用：
+
+```bash
+python scripts/generate_cn_neighbors.py --world-shp /path/to/world-administrative-boundaries.shp
+```
+
+如果需要生成其他世界国家级边界，可使用：
+
+```bash
+python scripts/generate_world_countries.py --world-shp /path/to/world-administrative-boundaries.shp
+```
+
+这个脚本会在输出 `world-countries` 前，先对每个国家执行一次基于中国边界的几何扣除。
+
+如果需要把外部映射表中的中文名批量回写到 SQLite/GeoJSON，可使用：
+
+```bash
+python scripts/update_country_names.py
 ```
 
 构建结果会包含：
@@ -116,3 +161,4 @@ python -m cnmaps_data.checker /path/to/your-data-package/cnmaps_data
 ## 相关文档
 
 - [开发者手册](docs/developer-guide.md)
+- [更新日志](CHANGELOG.md)

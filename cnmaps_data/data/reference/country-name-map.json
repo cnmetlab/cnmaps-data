@@ -1,0 +1,1394 @@
+[
+  {
+    "iso3": "ABW",
+    "name": "阿鲁巴",
+    "name_en": "Aruba",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "AFG",
+    "name": "阿富汗",
+    "name_en": "Afghanistan",
+    "dataset": "cn-neighbors"
+  },
+  {
+    "iso3": "AGO",
+    "name": "安哥拉",
+    "name_en": "Angola",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "AIA",
+    "name": "安圭拉",
+    "name_en": "Anguilla",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "ALB",
+    "name": "阿尔巴尼亚",
+    "name_en": "Albania",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "AND",
+    "name": "安道尔",
+    "name_en": "Andorra",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "ANT",
+    "name": "荷属安的列斯",
+    "name_en": "Netherlands Antilles",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "ARE",
+    "name": "阿拉伯联合酋长国",
+    "name_en": "United Arab Emirates",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "ARG",
+    "name": "阿根廷",
+    "name_en": "Argentina",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "ARM",
+    "name": "亚美尼亚",
+    "name_en": "Armenia",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "ASM",
+    "name": "美属萨摩亚",
+    "name_en": "American Samoa",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "ATF",
+    "name": "法属南部和南极领地",
+    "name_en": "French Southern and Antarctic Territories",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "ATG",
+    "name": "安提瓜和巴布达",
+    "name_en": "Antigua and Barbuda",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "AUS",
+    "name": "澳大利亚",
+    "name_en": "Australia",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "AUT",
+    "name": "奥地利",
+    "name_en": "Austria",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "AZE",
+    "name": "阿塞拜疆",
+    "name_en": "Azerbaijan",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "BDI",
+    "name": "布隆迪",
+    "name_en": "Burundi",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "BEL",
+    "name": "比利时",
+    "name_en": "Belgium",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "BEN",
+    "name": "贝宁",
+    "name_en": "Benin",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "BFA",
+    "name": "布基纳法索",
+    "name_en": "Burkina Faso",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "BGD",
+    "name": "孟加拉国",
+    "name_en": "Bangladesh",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "BGR",
+    "name": "保加利亚",
+    "name_en": "Bulgaria",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "BHR",
+    "name": "巴林",
+    "name_en": "Bahrain",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "BHS",
+    "name": "巴哈马",
+    "name_en": "Bahamas",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "BIH",
+    "name": "波斯尼亚和黑塞哥维那",
+    "name_en": "Bosnia and Herzegovina",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "BLR",
+    "name": "白俄罗斯",
+    "name_en": "Belarus",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "BLZ",
+    "name": "伯利兹",
+    "name_en": "Belize",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "BMU",
+    "name": "百慕大",
+    "name_en": "Bermuda",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "BOL",
+    "name": "玻利维亚",
+    "name_en": "Bolivia",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "BRA",
+    "name": "巴西",
+    "name_en": "Brazil",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "BRB",
+    "name": "巴巴多斯",
+    "name_en": "Barbados",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "BRN",
+    "name": "文莱",
+    "name_en": "Brunei",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "BTN",
+    "name": "不丹",
+    "name_en": "Bhutan",
+    "dataset": "cn-neighbors"
+  },
+  {
+    "iso3": "BVT",
+    "name": "布韦岛",
+    "name_en": "Bouvet Island",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "BWA",
+    "name": "博茨瓦纳",
+    "name_en": "Botswana",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "CAF",
+    "name": "中非共和国",
+    "name_en": "Central African Republic",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "CAN",
+    "name": "加拿大",
+    "name_en": "Canada",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "CCK",
+    "name": "科科斯（基林）群岛",
+    "name_en": "Cocos (Keeling) Islands",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "CHE",
+    "name": "瑞士",
+    "name_en": "Switzerland",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "CHL",
+    "name": "智利",
+    "name_en": "Chile",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "CIV",
+    "name": "科特迪瓦",
+    "name_en": "Ivory Coast",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "CMR",
+    "name": "喀麦隆",
+    "name_en": "Cameroon",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "COD",
+    "name": "民主刚果",
+    "name_en": "DR Congo",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "COG",
+    "name": "刚果",
+    "name_en": "Republic of the Congo",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "COK",
+    "name": "库克群岛",
+    "name_en": "Cook Islands",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "COL",
+    "name": "哥伦比亚",
+    "name_en": "Colombia",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "COM",
+    "name": "科摩罗",
+    "name_en": "Comoros",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "CPV",
+    "name": "佛得角",
+    "name_en": "Cape Verde",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "CRI",
+    "name": "哥斯达黎加",
+    "name_en": "Costa Rica",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "CUB",
+    "name": "古巴",
+    "name_en": "Cuba",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "CXR",
+    "name": "圣诞岛",
+    "name_en": "Christmas Island",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "CYM",
+    "name": "开曼群岛",
+    "name_en": "Cayman Islands",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "CYP",
+    "name": "塞浦路斯",
+    "name_en": "Cyprus",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "CZE",
+    "name": "捷克",
+    "name_en": "Czechia",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "DEU",
+    "name": "德国",
+    "name_en": "Germany",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "DJI",
+    "name": "吉布提",
+    "name_en": "Djibouti",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "DMA",
+    "name": "多米尼加",
+    "name_en": "Dominica",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "DNK",
+    "name": "丹麦",
+    "name_en": "Denmark",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "DOM",
+    "name": "多明尼加",
+    "name_en": "Dominican Republic",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "DZA",
+    "name": "阿尔及利亚",
+    "name_en": "Algeria",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "ECU",
+    "name": "厄瓜多尔",
+    "name_en": "Ecuador",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "EGY",
+    "name": "埃及",
+    "name_en": "Egypt",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "ERI",
+    "name": "厄立特里亚",
+    "name_en": "Eritrea",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "ESH",
+    "name": "西撒哈拉",
+    "name_en": "Western Sahara",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "ESP",
+    "name": "西班牙",
+    "name_en": "Spain",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "EST",
+    "name": "爱沙尼亚",
+    "name_en": "Estonia",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "ETH",
+    "name": "埃塞俄比亚",
+    "name_en": "Ethiopia",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "FIN",
+    "name": "芬兰",
+    "name_en": "Finland",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "FJI",
+    "name": "斐济",
+    "name_en": "Fiji",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "FLK",
+    "name": "福克兰群岛",
+    "name_en": "Falkland Islands (Malvinas)",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "FRA",
+    "name": "法国",
+    "name_en": "France",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "FRO",
+    "name": "法罗群岛",
+    "name_en": "Faroe Islands",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "FSM",
+    "name": "密克罗尼西亚",
+    "name_en": "Micronesia",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "GAB",
+    "name": "加蓬",
+    "name_en": "Gabon",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "GBR",
+    "name": "英国",
+    "name_en": "United Kingdom",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "GEO",
+    "name": "格鲁吉亚",
+    "name_en": "Georgia",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "GHA",
+    "name": "加纳",
+    "name_en": "Ghana",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "GIB",
+    "name": "直布罗陀",
+    "name_en": "Gibraltar",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "GIN",
+    "name": "几内亚",
+    "name_en": "Guinea",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "GLP",
+    "name": "瓜德罗普",
+    "name_en": "Guadeloupe",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "GMB",
+    "name": "冈比亚",
+    "name_en": "Gambia",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "GNB",
+    "name": "几内亚比绍",
+    "name_en": "Guinea-Bissau",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "GNQ",
+    "name": "赤道几内亚",
+    "name_en": "Equatorial Guinea",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "GRC",
+    "name": "希腊",
+    "name_en": "Greece",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "GRD",
+    "name": "格林纳达",
+    "name_en": "Grenada",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "GRL",
+    "name": "格陵兰",
+    "name_en": "Greenland",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "GTM",
+    "name": "危地马拉",
+    "name_en": "Guatemala",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "GUF",
+    "name": "法属圭亚那",
+    "name_en": "French Guiana",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "GUM",
+    "name": "关岛",
+    "name_en": "Guam",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "GUY",
+    "name": "圭亚那",
+    "name_en": "Guyana",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "HMD",
+    "name": "赫德岛和麦克唐纳群岛",
+    "name_en": "Heard Island and McDonald Islands",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "HND",
+    "name": "洪都拉斯",
+    "name_en": "Honduras",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "HRV",
+    "name": "克罗地亚",
+    "name_en": "Croatia",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "HTI",
+    "name": "海地",
+    "name_en": "Haiti",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "HUN",
+    "name": "匈牙利",
+    "name_en": "Hungary",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "IDN",
+    "name": "印度尼西亚",
+    "name_en": "Indonesia",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "IMY",
+    "name": "马恩岛",
+    "name_en": "Isle of Man",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "IND",
+    "name": "印度",
+    "name_en": "India",
+    "dataset": "cn-neighbors"
+  },
+  {
+    "iso3": "IOT",
+    "name": "英属印度洋领地",
+    "name_en": "British Indian Ocean Territory",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "IRL",
+    "name": "爱尔兰",
+    "name_en": "Ireland",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "IRN",
+    "name": "伊朗",
+    "name_en": "Iran",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "IRQ",
+    "name": "伊拉克",
+    "name_en": "Iraq",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "ISL",
+    "name": "冰岛",
+    "name_en": "Iceland",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "ISR",
+    "name": "以色列",
+    "name_en": "Israel",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "ITA",
+    "name": "意大利",
+    "name_en": "Italy",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "JAM",
+    "name": "牙买加",
+    "name_en": "Jamaica",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "JOR",
+    "name": "约旦",
+    "name_en": "Jordan",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "JPN",
+    "name": "日本",
+    "name_en": "Japan",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "KAZ",
+    "name": "哈萨克斯坦",
+    "name_en": "Kazakhstan",
+    "dataset": "cn-neighbors"
+  },
+  {
+    "iso3": "KEN",
+    "name": "肯尼亚",
+    "name_en": "Kenya",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "KGZ",
+    "name": "吉尔吉斯斯坦",
+    "name_en": "Kyrgyzstan",
+    "dataset": "cn-neighbors"
+  },
+  {
+    "iso3": "KHM",
+    "name": "柬埔寨",
+    "name_en": "Cambodia",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "KIR",
+    "name": "基里巴斯",
+    "name_en": "Kiribati",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "KNA",
+    "name": "圣基茨和尼维斯",
+    "name_en": "Saint Kitts and Nevis",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "KOR",
+    "name": "韩国",
+    "name_en": "South Korea",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "KWT",
+    "name": "科威特",
+    "name_en": "Kuwait",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "LAO",
+    "name": "老挝",
+    "name_en": "Lao People's Democratic Republic",
+    "dataset": "cn-neighbors"
+  },
+  {
+    "iso3": "LBN",
+    "name": "黎巴嫩",
+    "name_en": "Lebanon",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "LBR",
+    "name": "利比里亚",
+    "name_en": "Liberia",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "LBY",
+    "name": "利比亚",
+    "name_en": "Libya",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "LCA",
+    "name": "圣卢西亚",
+    "name_en": "Saint Lucia",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "LIE",
+    "name": "列支敦士登",
+    "name_en": "Liechtenstein",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "LKA",
+    "name": "斯里兰卡",
+    "name_en": "Sri Lanka",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "LSO",
+    "name": "莱索托",
+    "name_en": "Lesotho",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "LTU",
+    "name": "立陶宛",
+    "name_en": "Lithuania",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "LUX",
+    "name": "卢森堡",
+    "name_en": "Luxembourg",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "LVA",
+    "name": "拉脱维亚",
+    "name_en": "Latvia",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "MAR",
+    "name": "摩洛哥",
+    "name_en": "Morocco",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "MCO",
+    "name": "摩纳哥",
+    "name_en": "Monaco",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "MDA",
+    "name": "摩尔多瓦",
+    "name_en": "Moldova",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "MDG",
+    "name": "马达加斯加",
+    "name_en": "Madagascar",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "MDV",
+    "name": "马尔代夫",
+    "name_en": "Maldives",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "MEX",
+    "name": "墨西哥",
+    "name_en": "Mexico",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "MHL",
+    "name": "马绍尔群岛",
+    "name_en": "Marshall Islands",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "MKD",
+    "name": "北馬其頓",
+    "name_en": "North Macedonia",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "MLI",
+    "name": "马里",
+    "name_en": "Mali",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "MLT",
+    "name": "马耳他",
+    "name_en": "Malta",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "MMR",
+    "name": "缅甸",
+    "name_en": "Myanmar",
+    "dataset": "cn-neighbors"
+  },
+  {
+    "iso3": "MNE",
+    "name": "黑山",
+    "name_en": "Montenegro",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "MNG",
+    "name": "蒙古国",
+    "name_en": "Mongolia",
+    "dataset": "cn-neighbors"
+  },
+  {
+    "iso3": "MNP",
+    "name": "北马里亚纳群岛",
+    "name_en": "Northern Mariana Islands",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "MOZ",
+    "name": "莫桑比克",
+    "name_en": "Mozambique",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "MRT",
+    "name": "毛里塔尼亚",
+    "name_en": "Mauritania",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "MSR",
+    "name": "蒙特塞拉特",
+    "name_en": "Montserrat",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "MTQ",
+    "name": "马提尼克",
+    "name_en": "Martinique",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "MUS",
+    "name": "毛里求斯",
+    "name_en": "Mauritius",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "MWI",
+    "name": "马拉维",
+    "name_en": "Malawi",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "MYS",
+    "name": "马来西亚",
+    "name_en": "Malaysia",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "MYT",
+    "name": "马约特",
+    "name_en": "Mayotte",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "NAM",
+    "name": "纳米比亚",
+    "name_en": "Namibia",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "NCL",
+    "name": "新喀里多尼亚",
+    "name_en": "New Caledonia",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "NER",
+    "name": "尼日尔",
+    "name_en": "Niger",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "NFK",
+    "name": "诺福克岛",
+    "name_en": "Norfolk Island",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "NGA",
+    "name": "尼日利亚",
+    "name_en": "Nigeria",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "NIC",
+    "name": "尼加拉瓜",
+    "name_en": "Nicaragua",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "NIU",
+    "name": "纽埃",
+    "name_en": "Niue",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "NLD",
+    "name": "荷兰",
+    "name_en": "Netherlands",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "NOR",
+    "name": "挪威",
+    "name_en": "Norway",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "NPL",
+    "name": "尼泊尔",
+    "name_en": "Nepal",
+    "dataset": "cn-neighbors"
+  },
+  {
+    "iso3": "NRU",
+    "name": "瑙鲁",
+    "name_en": "Nauru",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "NZL",
+    "name": "新西兰",
+    "name_en": "New Zealand",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "OMN",
+    "name": "阿曼",
+    "name_en": "Oman",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "PAK",
+    "name": "巴基斯坦",
+    "name_en": "Pakistan",
+    "dataset": "cn-neighbors"
+  },
+  {
+    "iso3": "PAN",
+    "name": "巴拿马",
+    "name_en": "Panama",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "PCN",
+    "name": "皮特凯恩群岛",
+    "name_en": "Pitcairn Island",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "PER",
+    "name": "秘鲁",
+    "name_en": "Peru",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "PHL",
+    "name": "菲律宾",
+    "name_en": "Philippines",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "PLW",
+    "name": "帕劳",
+    "name_en": "Palau",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "PNG",
+    "name": "巴布亚新几内亚",
+    "name_en": "Papua New Guinea",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "POL",
+    "name": "波兰",
+    "name_en": "Poland",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "PRI",
+    "name": "波多黎各",
+    "name_en": "Puerto Rico",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "PRK",
+    "name": "朝鲜",
+    "name_en": "Democratic People's Republic of Korea",
+    "dataset": "cn-neighbors"
+  },
+  {
+    "iso3": "PRT",
+    "name": "葡萄牙",
+    "name_en": "Portugal",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "PRY",
+    "name": "巴拉圭",
+    "name_en": "Paraguay",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "PSE",
+    "name": "巴勒斯坦",
+    "name_en": "Palestine",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "PYF",
+    "name": "法属波利尼西亚",
+    "name_en": "French Polynesia",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "QAT",
+    "name": "卡塔尔",
+    "name_en": "Qatar",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "REU",
+    "name": "留尼汪",
+    "name_en": "Reunion",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "ROU",
+    "name": "罗马尼亚",
+    "name_en": "Romania",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "RUS",
+    "name": "俄罗斯",
+    "name_en": "Russian Federation",
+    "dataset": "cn-neighbors"
+  },
+  {
+    "iso3": "RWA",
+    "name": "卢旺达",
+    "name_en": "Rwanda",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "SAU",
+    "name": "沙特阿拉伯",
+    "name_en": "Saudi Arabia",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "SDN",
+    "name": "苏丹",
+    "name_en": "Sudan",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "SEN",
+    "name": "塞内加尔",
+    "name_en": "Senegal",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "SGP",
+    "name": "新加坡",
+    "name_en": "Singapore",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "SJM",
+    "name": "斯瓦尔巴和扬马延",
+    "name_en": "Svalbard and Jan Mayen Islands",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "SLB",
+    "name": "所罗门群岛",
+    "name_en": "Solomon Islands",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "SLE",
+    "name": "塞拉利昂",
+    "name_en": "Sierra Leone",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "SLV",
+    "name": "萨尔瓦多",
+    "name_en": "El Salvador",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "SMR",
+    "name": "圣马力诺",
+    "name_en": "San Marino",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "SOM",
+    "name": "索马里",
+    "name_en": "Somalia",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "SRB",
+    "name": "塞尔维亚",
+    "name_en": "Serbia",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "SSD",
+    "name": "南苏丹",
+    "name_en": "South Sudan",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "STP",
+    "name": "圣多美和普林西比",
+    "name_en": "São Tomé and Príncipe",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "SUR",
+    "name": "苏里南",
+    "name_en": "Suriname",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "SVK",
+    "name": "斯洛伐克",
+    "name_en": "Slovakia",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "SVN",
+    "name": "斯洛文尼亚",
+    "name_en": "Slovenia",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "SWE",
+    "name": "瑞典",
+    "name_en": "Sweden",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "SWZ",
+    "name": "斯威士兰",
+    "name_en": "Eswatini",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "SYC",
+    "name": "塞舌尔",
+    "name_en": "Seychelles",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "SYR",
+    "name": "叙利亚",
+    "name_en": "Syria",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "TCA",
+    "name": "特克斯和凯科斯群岛",
+    "name_en": "Turks and Caicos Islands",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "TCD",
+    "name": "乍得",
+    "name_en": "Chad",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "TGO",
+    "name": "多哥",
+    "name_en": "Togo",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "THA",
+    "name": "泰国",
+    "name_en": "Thailand",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "TJK",
+    "name": "塔吉克斯坦",
+    "name_en": "Tajikistan",
+    "dataset": "cn-neighbors"
+  },
+  {
+    "iso3": "TKL",
+    "name": "托克劳",
+    "name_en": "Tokelau",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "TKM",
+    "name": "土库曼斯坦",
+    "name_en": "Turkmenistan",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "TLS",
+    "name": "东帝汶",
+    "name_en": "Timor-Leste",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "TON",
+    "name": "汤加",
+    "name_en": "Tonga",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "TTO",
+    "name": "特立尼达和多巴哥",
+    "name_en": "Trinidad and Tobago",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "TUN",
+    "name": "突尼斯",
+    "name_en": "Tunisia",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "TUR",
+    "name": "土耳其",
+    "name_en": "Turkey",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "TUV",
+    "name": "图瓦卢",
+    "name_en": "Tuvalu",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "TZA",
+    "name": "坦桑尼亚",
+    "name_en": "Tanzania",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "UGA",
+    "name": "乌干达",
+    "name_en": "Uganda",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "UKR",
+    "name": "乌克兰",
+    "name_en": "Ukraine",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "URY",
+    "name": "乌拉圭",
+    "name_en": "Uruguay",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "USA",
+    "name": "美国",
+    "name_en": "United States",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "UZB",
+    "name": "乌兹别克斯坦",
+    "name_en": "Uzbekistan",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "VAT",
+    "name": "梵蒂冈",
+    "name_en": "Holy See",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "VCT",
+    "name": "圣文森特和格林纳丁斯",
+    "name_en": "Saint Vincent and the Grenadines",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "VEN",
+    "name": "委内瑞拉",
+    "name_en": "Venezuela",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "VGB",
+    "name": "英属维尔京群岛",
+    "name_en": "British Virgin Islands",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "VIR",
+    "name": "美属维尔京群岛",
+    "name_en": "United States Virgin Islands",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "VNM",
+    "name": "越南",
+    "name_en": "Vietnam",
+    "dataset": "cn-neighbors"
+  },
+  {
+    "iso3": "VUT",
+    "name": "瓦努阿图",
+    "name_en": "Vanuatu",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "WSM",
+    "name": "萨摩亚",
+    "name_en": "Samoa",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "YEM",
+    "name": "也门",
+    "name_en": "Yemen",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "ZAF",
+    "name": "南非",
+    "name_en": "South Africa",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "ZMB",
+    "name": "赞比亚",
+    "name_en": "Zambia",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "ZWE",
+    "name": "津巴布韦",
+    "name_en": "Zimbabwe",
+    "dataset": "world-countries"
+  }
+]
