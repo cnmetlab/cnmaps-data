@@ -35,6 +35,7 @@
 - 它只提供“国”一级边界。
 - 当前国家名称沿用世界边界源数据中的英文国名。
 - 它不包含中国，也不包含已经在 `cn-neighbors` 中单独处理的邻国。
+- 它在写出前会统一扣除 `cnmaps-data` 当前中国边界所覆盖的几何区域，以避免与中国口径边界产生重叠。
 
 ## 与 cnmaps 的关系
 
@@ -96,6 +97,8 @@ python scripts/generate_cn_neighbors.py --world-shp /path/to/world-administrativ
 ```bash
 python scripts/generate_world_countries.py --world-shp /path/to/world-administrative-boundaries.shp
 ```
+
+这个脚本会在输出 `world-countries` 前，先对每个国家执行一次基于中国边界的几何扣除。
 
 构建结果会包含：
 

@@ -9,12 +9,15 @@ import sqlite3
 from pathlib import Path
 
 import geopandas as gpd
+from shapely import snap
 from shapely.geometry import mapping
+from shapely.geometry import shape
 
 
 SOURCE_NAME = "WORLD_COUNTRIES"
 LEVEL_NAME = "国"
 KIND_NAME = "陆地"
+SNAP_TOLERANCE = 1e-8
 EXCLUDED_ISO3 = {
     "CHN",
     "AFG",
@@ -55,6 +58,12 @@ def _ensure_output_dir(package_root: Path) -> Path:
     return out_dir
 
 
+def _load_china_geometry(package_root: Path):
+    china_path = package_root / "data" / "datasets" / "administrative" / "amap" / "land" / "100000.geojson"
+    with china_path.open(encoding="utf-8") as f:
+        return shape(json.load(f))
+
+
 def _build_row_id(country_name: str, path: str) -> str:
     key = f"{country_name}|{LEVEL_NAME}|{SOURCE_NAME}|{KIND_NAME}|{path}"
     return hashlib.md5(key.encode("utf-8")).hexdigest()
@@ -66,6 +75,13 @@ def _load_member_states(world_shp: Path) -> gpd.GeoDataFrame:
     gdf = gdf[gdf["iso3"].notna()].copy()
     gdf = gdf[~gdf["iso3"].isin(EXCLUDED_ISO3)].copy()
     return gdf[["iso3", "name", "geometry"]].copy()
+
+
+def _apply_china_difference(gdf: gpd.GeoDataFrame, china_geom) -> gpd.GeoDataFrame:
+    gdf = gdf.copy()
+    gdf["geometry"] = [snap(geom, china_geom, SNAP_TOLERANCE).difference(china_geom) for geom in gdf.geometry]
+    gdf = gdf[~gdf.geometry.is_empty].copy()
+    return gdf
 
 
 def _write_geojson(output_dir: Path, gdf: gpd.GeoDataFrame) -> list[tuple[str, str, str]]:
@@ -121,7 +137,8 @@ def main() -> int:
     package_root = Path(args.package_root).expanduser().resolve()
     world_shp = Path(args.world_shp).expanduser().resolve()
 
-    gdf = _load_member_states(world_shp)
+    china_geom = _load_china_geometry(package_root)
+    gdf = _apply_china_difference(_load_member_states(world_shp), china_geom)
     output_dir = _ensure_output_dir(package_root)
     records = _write_geojson(output_dir, gdf)
     _update_index_db(package_root, records)
