@@ -9,6 +9,7 @@ import sqlite3
 from pathlib import Path
 
 import geopandas as gpd
+from shapely import snap
 from shapely.geometry import mapping, shape
 
 
@@ -38,6 +39,7 @@ MANUAL_DISPUTED_ASSIGNMENTS = {
 SOURCE_NAME = "CN_NEIGHBORS"
 KIND_NAME = "陆地"
 LEVEL_NAME = "国"
+SNAP_TOLERANCE = 1e-8
 
 
 def build_arg_parser() -> argparse.ArgumentParser:
@@ -77,14 +79,17 @@ def _build_adjusted_member_geometries(gdf: gpd.GeoDataFrame, china_geom):
     members = members[members["iso3"].notna()].copy()
     members = members[members["iso3"] != "CHN"].copy()
 
-    adjusted = {row.iso3: row.geometry.difference(china_geom) for row in members.itertuples()}
+    adjusted = {
+        row.iso3: snap(row.geometry, china_geom, SNAP_TOLERANCE).difference(china_geom)
+        for row in members.itertuples()
+    }
     english_names = {row.iso3: row.name for row in members.itertuples()}
 
     for disputed_name, target_iso3 in MANUAL_DISPUTED_ASSIGNMENTS.items():
         disputed = gdf[gdf["name"] == disputed_name]
         if disputed.empty:
             continue
-        residual = disputed.geometry.iloc[0].difference(china_geom)
+        residual = snap(disputed.geometry.iloc[0], china_geom, SNAP_TOLERANCE).difference(china_geom)
         if residual.is_empty:
             continue
         adjusted[target_iso3] = adjusted[target_iso3].union(residual)
