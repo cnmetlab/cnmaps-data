@@ -1,6 +1,6 @@
-# Changelog
+# 更新日志
 
-All notable changes to `cnmaps-data` will be documented in this file.
+`cnmaps-data` 的重要变更会记录在这里。
 
 ## 1.1.0
 
