@@ -240,6 +240,12 @@ CREATE TABLE ADMINISTRATIVE
 
 - [国家名称与 ISO3 映射表](country-name-map.md)
 
+推荐做法是：
+
+- GeoJSON 与 SQLite 中直接保存最终中文名
+- 映射表只作为维护和批量更新辅助资料
+- 通过单独脚本回写名称，而不是让主生成脚本强依赖映射表
+
 ### path 规则
 
 `path` 应写成相对于数据集根目录或带数据集前缀的相对路径。
