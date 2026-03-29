@@ -1,0 +1,24 @@
+{
+  "name": "cnmaps-data",
+  "provider": "official",
+  "version": "1.0.0",
+  "cnmaps_data_api_version": "1",
+  "datasets": {
+    "administrative": {
+      "kind": "boundary",
+      "description": "Administrative boundary datasets and indexes",
+      "index_db": "data/index/administrative.db",
+      "root": "data/datasets/administrative"
+    },
+    "geography": {
+      "kind": "boundary",
+      "description": "Geography boundary datasets",
+      "root": "data/datasets/geography"
+    },
+    "sample": {
+      "kind": "sample",
+      "description": "Sample gridded datasets for demos and tests",
+      "root": "data/datasets/sample"
+    }
+  }
+}

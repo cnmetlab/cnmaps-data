@@ -1,0 +1,31 @@
+[tool.poetry]
+name = "cnmaps-data"
+version = "1.0.0"
+description = "Official data package for cnmaps"
+authors = ["Clarmy <clarmyleewt@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+homepage = "https://github.com/cnmetlab/cnmaps"
+packages = [{ include = "cnmaps_data" }]
+include = [
+    { path = "cnmaps_data/manifest.json", format = ["sdist", "wheel"] },
+    { path = "cnmaps_data/data", format = ["sdist", "wheel"] }
+]
+exclude = ["**/.DS_Store"]
+
+[tool.poetry.dependencies]
+python = ">=3.9,<3.13"
+
+[tool.poetry.group.dev.dependencies]
+flake8 = "^7.3.0"
+build = "^1.4.2"
+
+[tool.poetry.scripts]
+cnmaps-data-check = "cnmaps_data.checker:main"
+
+[tool.poetry.plugins."cnmaps.data_providers"]
+official = "cnmaps_data.provider:get_provider"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
