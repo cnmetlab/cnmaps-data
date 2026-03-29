@@ -20,6 +20,7 @@ KIND_NAME = "陆地"
 SNAP_TOLERANCE = 1e-8
 EXCLUDED_ISO3 = {
     "CHN",
+    "TWN",
     "AFG",
     "BTN",
     "IND",
