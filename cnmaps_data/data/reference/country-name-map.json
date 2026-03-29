@@ -1,5 +1,11 @@
 [
   {
+    "iso3": "ABW",
+    "name": "阿鲁巴",
+    "name_en": "Aruba",
+    "dataset": "world-countries"
+  },
+  {
     "iso3": "AFG",
     "name": "阿富汗",
     "name_en": "Afghanistan",
@@ -12,6 +18,12 @@
     "dataset": "world-countries"
   },
   {
+    "iso3": "AIA",
+    "name": "安圭拉",
+    "name_en": "Anguilla",
+    "dataset": "world-countries"
+  },
+  {
     "iso3": "ALB",
     "name": "阿尔巴尼亚",
     "name_en": "Albania",
@@ -21,6 +33,12 @@
     "iso3": "AND",
     "name": "安道尔",
     "name_en": "Andorra",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "ANT",
+    "name": "荷属安的列斯",
+    "name_en": "Netherlands Antilles",
     "dataset": "world-countries"
   },
   {
@@ -39,6 +57,18 @@
     "iso3": "ARM",
     "name": "亚美尼亚",
     "name_en": "Armenia",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "ASM",
+    "name": "美属萨摩亚",
+    "name_en": "American Samoa",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "ATF",
+    "name": "法属南部和南极领地",
+    "name_en": "French Southern and Antarctic Territories",
     "dataset": "world-countries"
   },
   {
@@ -132,6 +162,12 @@
     "dataset": "world-countries"
   },
   {
+    "iso3": "BMU",
+    "name": "百慕大",
+    "name_en": "Bermuda",
+    "dataset": "world-countries"
+  },
+  {
     "iso3": "BOL",
     "name": "玻利维亚",
     "name_en": "Bolivia",
@@ -162,6 +198,12 @@
     "dataset": "cn-neighbors"
   },
   {
+    "iso3": "BVT",
+    "name": "布韦岛",
+    "name_en": "Bouvet Island",
+    "dataset": "world-countries"
+  },
+  {
     "iso3": "BWA",
     "name": "博茨瓦纳",
     "name_en": "Botswana",
@@ -177,6 +219,12 @@
     "iso3": "CAN",
     "name": "加拿大",
     "name_en": "Canada",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "CCK",
+    "name": "科科斯（基林）群岛",
+    "name_en": "Cocos (Keeling) Islands",
     "dataset": "world-countries"
   },
   {
@@ -216,6 +264,12 @@
     "dataset": "world-countries"
   },
   {
+    "iso3": "COK",
+    "name": "库克群岛",
+    "name_en": "Cook Islands",
+    "dataset": "world-countries"
+  },
+  {
     "iso3": "COL",
     "name": "哥伦比亚",
     "name_en": "Colombia",
@@ -243,6 +297,18 @@
     "iso3": "CUB",
     "name": "古巴",
     "name_en": "Cuba",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "CXR",
+    "name": "圣诞岛",
+    "name_en": "Christmas Island",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "CYM",
+    "name": "开曼群岛",
+    "name_en": "Cayman Islands",
     "dataset": "world-countries"
   },
   {
@@ -312,6 +378,12 @@
     "dataset": "world-countries"
   },
   {
+    "iso3": "ESH",
+    "name": "西撒哈拉",
+    "name_en": "Western Sahara",
+    "dataset": "world-countries"
+  },
+  {
     "iso3": "ESP",
     "name": "西班牙",
     "name_en": "Spain",
@@ -342,9 +414,21 @@
     "dataset": "world-countries"
   },
   {
+    "iso3": "FLK",
+    "name": "福克兰群岛",
+    "name_en": "Falkland Islands (Malvinas)",
+    "dataset": "world-countries"
+  },
+  {
     "iso3": "FRA",
     "name": "法国",
     "name_en": "France",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "FRO",
+    "name": "法罗群岛",
+    "name_en": "Faroe Islands",
     "dataset": "world-countries"
   },
   {
@@ -378,9 +462,21 @@
     "dataset": "world-countries"
   },
   {
+    "iso3": "GIB",
+    "name": "直布罗陀",
+    "name_en": "Gibraltar",
+    "dataset": "world-countries"
+  },
+  {
     "iso3": "GIN",
     "name": "几内亚",
     "name_en": "Guinea",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "GLP",
+    "name": "瓜德罗普",
+    "name_en": "Guadeloupe",
     "dataset": "world-countries"
   },
   {
@@ -414,15 +510,39 @@
     "dataset": "world-countries"
   },
   {
+    "iso3": "GRL",
+    "name": "格陵兰",
+    "name_en": "Greenland",
+    "dataset": "world-countries"
+  },
+  {
     "iso3": "GTM",
     "name": "危地马拉",
     "name_en": "Guatemala",
     "dataset": "world-countries"
   },
   {
+    "iso3": "GUF",
+    "name": "法属圭亚那",
+    "name_en": "French Guiana",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "GUM",
+    "name": "关岛",
+    "name_en": "Guam",
+    "dataset": "world-countries"
+  },
+  {
     "iso3": "GUY",
     "name": "圭亚那",
     "name_en": "Guyana",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "HMD",
+    "name": "赫德岛和麦克唐纳群岛",
+    "name_en": "Heard Island and McDonald Islands",
     "dataset": "world-countries"
   },
   {
@@ -456,10 +576,22 @@
     "dataset": "world-countries"
   },
   {
+    "iso3": "IMY",
+    "name": "马恩岛",
+    "name_en": "Isle of Man",
+    "dataset": "world-countries"
+  },
+  {
     "iso3": "IND",
     "name": "印度",
     "name_en": "India",
     "dataset": "cn-neighbors"
+  },
+  {
+    "iso3": "IOT",
+    "name": "英属印度洋领地",
+    "name_en": "British Indian Ocean Territory",
+    "dataset": "world-countries"
   },
   {
     "iso3": "IRL",
@@ -708,6 +840,12 @@
     "dataset": "cn-neighbors"
   },
   {
+    "iso3": "MNP",
+    "name": "北马里亚纳群岛",
+    "name_en": "Northern Mariana Islands",
+    "dataset": "world-countries"
+  },
+  {
     "iso3": "MOZ",
     "name": "莫桑比克",
     "name_en": "Mozambique",
@@ -717,6 +855,18 @@
     "iso3": "MRT",
     "name": "毛里塔尼亚",
     "name_en": "Mauritania",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "MSR",
+    "name": "蒙特塞拉特",
+    "name_en": "Montserrat",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "MTQ",
+    "name": "马提尼克",
+    "name_en": "Martinique",
     "dataset": "world-countries"
   },
   {
@@ -738,15 +888,33 @@
     "dataset": "world-countries"
   },
   {
+    "iso3": "MYT",
+    "name": "马约特",
+    "name_en": "Mayotte",
+    "dataset": "world-countries"
+  },
+  {
     "iso3": "NAM",
     "name": "纳米比亚",
     "name_en": "Namibia",
     "dataset": "world-countries"
   },
   {
+    "iso3": "NCL",
+    "name": "新喀里多尼亚",
+    "name_en": "New Caledonia",
+    "dataset": "world-countries"
+  },
+  {
     "iso3": "NER",
     "name": "尼日尔",
     "name_en": "Niger",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "NFK",
+    "name": "诺福克岛",
+    "name_en": "Norfolk Island",
     "dataset": "world-countries"
   },
   {
@@ -759,6 +927,12 @@
     "iso3": "NIC",
     "name": "尼加拉瓜",
     "name_en": "Nicaragua",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "NIU",
+    "name": "纽埃",
+    "name_en": "Niue",
     "dataset": "world-countries"
   },
   {
@@ -810,6 +984,12 @@
     "dataset": "world-countries"
   },
   {
+    "iso3": "PCN",
+    "name": "皮特凯恩群岛",
+    "name_en": "Pitcairn Island",
+    "dataset": "world-countries"
+  },
+  {
     "iso3": "PER",
     "name": "秘鲁",
     "name_en": "Peru",
@@ -840,6 +1020,12 @@
     "dataset": "world-countries"
   },
   {
+    "iso3": "PRI",
+    "name": "波多黎各",
+    "name_en": "Puerto Rico",
+    "dataset": "world-countries"
+  },
+  {
     "iso3": "PRK",
     "name": "朝鲜",
     "name_en": "Democratic People's Republic of Korea",
@@ -858,9 +1044,27 @@
     "dataset": "world-countries"
   },
   {
+    "iso3": "PSE",
+    "name": "巴勒斯坦",
+    "name_en": "Palestine",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "PYF",
+    "name": "法属波利尼西亚",
+    "name_en": "French Polynesia",
+    "dataset": "world-countries"
+  },
+  {
     "iso3": "QAT",
     "name": "卡塔尔",
     "name_en": "Qatar",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "REU",
+    "name": "留尼汪",
+    "name_en": "Reunion",
     "dataset": "world-countries"
   },
   {
@@ -903,6 +1107,12 @@
     "iso3": "SGP",
     "name": "新加坡",
     "name_en": "Singapore",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "SJM",
+    "name": "斯瓦尔巴和扬马延",
+    "name_en": "Svalbard and Jan Mayen Islands",
     "dataset": "world-countries"
   },
   {
@@ -996,6 +1206,12 @@
     "dataset": "world-countries"
   },
   {
+    "iso3": "TCA",
+    "name": "特克斯和凯科斯群岛",
+    "name_en": "Turks and Caicos Islands",
+    "dataset": "world-countries"
+  },
+  {
     "iso3": "TCD",
     "name": "乍得",
     "name_en": "Chad",
@@ -1018,6 +1234,12 @@
     "name": "塔吉克斯坦",
     "name_en": "Tajikistan",
     "dataset": "cn-neighbors"
+  },
+  {
+    "iso3": "TKL",
+    "name": "托克劳",
+    "name_en": "Tokelau",
+    "dataset": "world-countries"
   },
   {
     "iso3": "TKM",
@@ -1098,6 +1320,12 @@
     "dataset": "world-countries"
   },
   {
+    "iso3": "VAT",
+    "name": "梵蒂冈",
+    "name_en": "Holy See",
+    "dataset": "world-countries"
+  },
+  {
     "iso3": "VCT",
     "name": "圣文森特和格林纳丁斯",
     "name_en": "Saint Vincent and the Grenadines",
@@ -1107,6 +1335,18 @@
     "iso3": "VEN",
     "name": "委内瑞拉",
     "name_en": "Venezuela",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "VGB",
+    "name": "英属维尔京群岛",
+    "name_en": "British Virgin Islands",
+    "dataset": "world-countries"
+  },
+  {
+    "iso3": "VIR",
+    "name": "美属维尔京群岛",
+    "name_en": "United States Virgin Islands",
     "dataset": "world-countries"
   },
   {

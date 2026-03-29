@@ -74,10 +74,28 @@ def _build_row_id(country_name: str, path: str) -> str:
 
 def _load_member_states(world_shp: Path) -> gpd.GeoDataFrame:
     gdf = gpd.read_file(world_shp)
-    gdf = gdf[gdf["status"] == "Member State"].copy()
     gdf = gdf[gdf["iso3"].notna()].copy()
     gdf = gdf[~gdf["iso3"].isin(EXCLUDED_ISO3)].copy()
-    return gdf[["iso3", "name", "geometry"]].copy()
+    gdf = gdf[["iso3", "name", "status", "geometry"]].copy()
+    return _merge_by_iso3(gdf)
+
+
+def _merge_by_iso3(gdf: gpd.GeoDataFrame) -> gpd.GeoDataFrame:
+    rows = []
+    for iso3, group in gdf.groupby("iso3", sort=True):
+        member_names = group.loc[group["status"] == "Member State", "name"].dropna().tolist()
+        if member_names:
+            display_name = member_names[0]
+        else:
+            display_name = sorted(group["name"].dropna().astype(str))[0]
+        rows.append(
+            {
+                "iso3": iso3,
+                "name": display_name,
+                "geometry": group.geometry.union_all(),
+            }
+        )
+    return gpd.GeoDataFrame(rows, crs=gdf.crs)
 
 
 def _apply_china_difference(gdf: gpd.GeoDataFrame, china_geom) -> gpd.GeoDataFrame:
