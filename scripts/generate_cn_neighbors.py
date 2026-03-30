@@ -60,6 +60,17 @@ SNAP_TOLERANCE = 1e-8
 CLIP_WINDOW_MARGIN = 2.0
 SNAP_REFERENCE_SIMPLIFY_TOLERANCE = 0.01
 PATH_PREFIX = "administrative/cn-neighbors/land/"
+COORD_DECIMALS = 5
+
+
+def _round_geojson_value(value):
+    if isinstance(value, float):
+        return round(value, COORD_DECIMALS)
+    if isinstance(value, (list, tuple)):
+        return [_round_geojson_value(item) for item in value]
+    if isinstance(value, dict):
+        return {key: _round_geojson_value(item) for key, item in value.items()}
+    return value
 
 
 def _intersects_bounds(geom, ref_bounds: tuple[float, float, float, float]) -> bool:
@@ -192,6 +203,7 @@ def _write_geojson_files(
             },
             "geometry": mapping(geom),
         }
+        payload = _round_geojson_value(payload)
         with out_fp.open("w", encoding="utf-8") as f:
             json.dump(payload, f, ensure_ascii=False, separators=(",", ":"))
 
