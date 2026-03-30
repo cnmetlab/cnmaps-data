@@ -141,7 +141,9 @@ def _write_international_markdown(cur: sqlite3.Cursor, out_path: str) -> None:
     countries = [
         row[0]
         for row in cur.execute(
-            "SELECT country FROM ADMINISTRATIVE WHERE source IN ('CN_NEIGHBORS', 'WORLD_COUNTRIES') "
+            "SELECT country FROM ADMINISTRATIVE "
+            "WHERE source = '世界银行' "
+            "AND path LIKE 'administrative/%/land/%.geojson' "
             "ORDER BY country"
         )
     ]
@@ -153,11 +155,8 @@ def _write_international_markdown(cur: sqlite3.Cursor, out_path: str) -> None:
         "",
         "## 数据来源",
         "",
-        "国界级几何参考 OpenDataSoft 数据集 "
-        "[World Administrative Boundaries - Countries and Territories]"
-        "(https://public.opendatasoft.com/explore/dataset/world-administrative-boundaries/export/?flg=en-us)"
-        "（数据集标识 `world-administrative-boundaries`，为全球 level 0 行政边界，含部分非主权领地）。",
-        "包内产物可能经过裁剪、与中国边界做几何扣除及中文名映射等处理。",
+        "国界级几何当前参考 **World Bank Official Boundaries - Admin 0** 数据。",
+        "包内产物可能经过裁剪、与中国边界做几何扣除、争议区分类整理及中文名映射等处理。",
         "",
         "## 索引说明",
         "",

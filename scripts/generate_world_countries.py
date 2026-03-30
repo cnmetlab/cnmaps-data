@@ -9,21 +9,31 @@ import sqlite3
 from pathlib import Path
 
 import geopandas as gpd
+import pandas as pd
 from shapely import snap
 from shapely.geometry import box, mapping
 from shapely.geometry import shape
 from tqdm import tqdm
 
 
-SOURCE_NAME = "WORLD_COUNTRIES"
+SOURCE_NAME = "世界银行"
 LEVEL_NAME = "国"
 KIND_NAME = "陆地"
 SNAP_TOLERANCE = 1e-8
 CLIP_WINDOW_MARGIN = 2.0
 SNAP_REFERENCE_SIMPLIFY_TOLERANCE = 0.01
+PATH_PREFIX = "administrative/world-countries/land/"
+WB_STATUS_MEMBER_LIKE = {
+    "Member State",
+    "Territory",
+    "Non Member State",
+    "Special Administrative Region",
+}
 EXCLUDED_ISO3 = {
     "CHN",
     "TWN",
+    "HKG",
+    "MAC",
     "AFG",
     "BTN",
     "IND",
@@ -40,13 +50,32 @@ EXCLUDED_ISO3 = {
     "VNM",
 }
 
-CHINA_DISPUTED_DEDUCTION_NAMES = {
+CHINA_RELATED_DISPUTED_ASSIGNMENTS = {
     "Aksai Chin",
-    "CH-IN",
+    "Arunachal Pradesh",
+    "Chumar East",
+    "Chumar West",
     "Demchok",
-    "Paracel Is",
-    "Senkakus",
-    "Spratly Is",
+    "Doklam",
+    "Jadh Ganga Valley",
+    "Karakoram Range",
+    "Lapthal",
+    "Shipki Pass",
+}
+
+CHINA_DISPUTED_DEDUCTION_NAMES = set(CHINA_RELATED_DISPUTED_ASSIGNMENTS)
+
+NON_CHINA_DISPUTED_AREAS = {
+    "Abyei": ("SDN-SSD", "Abyei"),
+    "Gilgit Baltistan": ("IND-PAK-GB", "Gilgit Baltistan"),
+    "Golan Heights": ("ISR-SYR", "Golan Heights"),
+    "Ilemi Triangle": ("KEN-SSD", "Ilemi Triangle"),
+    "Jammu and Kashmir": ("IND-PAK-JK", "Jammu and Kashmir"),
+    "Kalapani": ("IND-NPL", "Kalapani"),
+    "Kauirik\r\n": ("GUY-VEN", "Kauirik"),
+    "No Man's Land": ("EGY-SDN", "No Man's Land"),
+    "Shebaa Farms Dispute": ("ISR-LBN", "Shebaa Farms Dispute"),
+    "UN Buffer Zone": ("CYP-TUR", "UN Buffer Zone"),
 }
 
 
@@ -93,30 +122,53 @@ def _load_china_geometry(package_root: Path):
         return shape(json.load(f))
 
 
-def _build_row_id(country_name: str, path: str) -> str:
-    key = f"{country_name}|{LEVEL_NAME}|{SOURCE_NAME}|{KIND_NAME}|{path}"
+def _build_row_id(country_name: str, iso3: str, path: str) -> str:
+    key = f"{country_name}|{iso3}|{LEVEL_NAME}|{SOURCE_NAME}|{KIND_NAME}|{path}"
     return hashlib.md5(key.encode("utf-8")).hexdigest()
 
 
 def _load_member_states(world_shp: Path) -> gpd.GeoDataFrame:
     gdf = gpd.read_file(world_shp)
-    gdf = gdf[gdf["shapeType"] == "ADM0"].copy()
-    gdf = gdf[gdf["shapeGroup"].notna()].copy()
-    gdf = gdf[~gdf["shapeGroup"].isin(EXCLUDED_ISO3)].copy()
-    gdf = gdf[["shapeGroup", "shapeName", "geometry"]].copy()
+    base = gdf[gdf["WB_STATUS"].isin(WB_STATUS_MEMBER_LIKE)].copy()
+    base = base[base["ISO_A3"].notna()].copy()
+    base = base[~base["ISO_A3"].isin(EXCLUDED_ISO3)].copy()
+    base = base[["ISO_A3", "NAM_0", "geometry"]].rename(columns={"ISO_A3": "iso3", "NAM_0": "name"})
+
+    disputed = gdf[gdf["WB_STATUS"] == "Non-determined legal status area"].copy()
+    disputed = disputed[~disputed["NAM_0"].isin(CHINA_RELATED_DISPUTED_ASSIGNMENTS)].copy()
+
+    dispute_rows = []
+    for row in disputed.itertuples():
+        if pd.notna(row.ISO_A3) and row.ISO_A3 not in EXCLUDED_ISO3:
+            dispute_rows.append({"iso3": row.ISO_A3, "name": row.NAM_0, "geometry": row.geometry})
+            continue
+        mapped = NON_CHINA_DISPUTED_AREAS.get(row.NAM_0)
+        if mapped is None:
+            continue
+        dispute_rows.append({"iso3": mapped[0], "name": mapped[1], "geometry": row.geometry})
+
+    if dispute_rows:
+        dispute_gdf = gpd.GeoDataFrame(dispute_rows, crs=gdf.crs)
+        gdf = gpd.GeoDataFrame(
+            pd.concat([base, dispute_gdf], ignore_index=True),
+            crs=gdf.crs,
+        )
+    else:
+        gdf = gpd.GeoDataFrame(base, crs=gdf.crs)
+
     return _merge_by_iso3(gdf)
 
 
 def _merge_by_iso3(gdf: gpd.GeoDataFrame) -> gpd.GeoDataFrame:
     rows = []
-    grouped = list(gdf.groupby("shapeGroup", sort=True))
+    grouped = list(gdf.groupby("iso3", sort=True))
     for iso3, group in tqdm(
         grouped,
         total=len(grouped),
         desc="合并世界国家几何",
         unit="country",
     ):
-        display_name = sorted(group["shapeName"].dropna().astype(str))[0]
+        display_name = sorted(group["name"].dropna().astype(str))[0]
         rows.append(
             {
                 "iso3": iso3,
@@ -128,9 +180,10 @@ def _merge_by_iso3(gdf: gpd.GeoDataFrame) -> gpd.GeoDataFrame:
 
 
 def _load_china_claims_geometry(world_shp: Path, china_geom):
-    gdf = gpd.read_file(world_shp)[["shapeType", "shapeName", "geometry"]].copy()
+    gdf = gpd.read_file(world_shp)[["WB_STATUS", "NAM_0", "geometry"]].copy()
     disputed = gdf[
-        (gdf["shapeType"] == "DISP") & (gdf["shapeName"].isin(CHINA_DISPUTED_DEDUCTION_NAMES))
+        (gdf["WB_STATUS"] == "Non-determined legal status area")
+        & (gdf["NAM_0"].isin(CHINA_DISPUTED_DEDUCTION_NAMES))
     ].copy()
     if disputed.empty:
         return china_geom
@@ -199,23 +252,24 @@ def _update_index_db(package_root: Path, records: list[tuple[str, str, str]]) ->
     con = sqlite3.connect(db_path)
     try:
         cur = con.cursor()
-        cur.execute("DELETE FROM ADMINISTRATIVE WHERE source = ?", (SOURCE_NAME,))
+        cur.execute("DELETE FROM ADMINISTRATIVE WHERE path LIKE ?", (f"{PATH_PREFIX}%",))
         rows = [
             (
-                _build_row_id(country_name, path),
+                _build_row_id(country_name, iso3, path),
                 country_name,
+                iso3,
                 path,
                 LEVEL_NAME,
                 SOURCE_NAME,
                 KIND_NAME,
             )
-            for _, country_name, path in records
+            for iso3, country_name, path in records
         ]
         cur.executemany(
             """
             INSERT INTO ADMINISTRATIVE
-            (id, country, province, city, district, path, level, source, kind)
-            VALUES (?, ?, NULL, NULL, NULL, ?, ?, ?, ?)
+            (id, country, iso3, province, city, district, path, level, source, kind)
+            VALUES (?, ?, ?, NULL, NULL, NULL, ?, ?, ?, ?)
             """,
             tqdm(
                 rows,

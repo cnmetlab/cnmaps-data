@@ -183,6 +183,7 @@ CREATE TABLE ADMINISTRATIVE
 (
   id text,
   country text,
+  iso3 text,
   province text,
   city text,
   district text,
@@ -202,12 +203,13 @@ CREATE TABLE ADMINISTRATIVE
 
 - `id`: 唯一标识
 - `country`: 国家名称
+- `iso3`: ISO3 或自定义组合码。官方 `cnmaps-data` 中，国外记录使用各自代码，中国行政区记录统一使用 `CHN`
 - `province`: 省级名称
 - `city`: 市级名称
 - `district`: 区县名称
 - `path`: 相对数据路径
 - `level`: 行政等级，当前 `cnmaps` 识别 `国/省/市/区县`
-- `source`: 数据源，如 `高德`
+- `source`: 数据源。官方 `cnmaps-data` 中，中国行政区使用 `高德`，国外国家 / 地区级数据统一使用 `世界银行`
 - `kind`: 数据类型，如 `陆地/海域` 等
 
 ### 关于国外国家级数据
@@ -217,6 +219,7 @@ CREATE TABLE ADMINISTRATIVE
 对于国外国家级边界，推荐写法是：
 
 - `country`: 国家名称
+- `iso3`: ISO3 或自定义组合码
 - `province`: `NULL`
 - `city`: `NULL`
 - `district`: `NULL`
@@ -227,12 +230,40 @@ CREATE TABLE ADMINISTRATIVE
 如果你要加入不与中国接壤的其他国家，推荐单独放在类似 `world-countries` 这样的 source 下：
 
 - `country`: 国家名称
+- `iso3`: ISO3 或自定义组合码
 - `province`: `NULL`
 - `city`: `NULL`
 - `district`: `NULL`
 - `level`: `国`
 
 官方 `cnmaps-data` 当前也采用这一方式承载非邻国的世界国家级边界。
+
+需要注意的是，官方 `cnmaps-data` 虽然在目录结构上区分：
+
+- `administrative/cn-neighbors/...`
+- `administrative/world-countries/...`
+
+但在 SQLite 中二者当前统一写作：
+
+- `source = 世界银行`
+
+也就是说：
+
+- `source` 表示国外数据的来源/出处
+- `path` 目录前缀表示其在包内属于哪一类数据集
+
+### 关于中国行政区的 iso3
+
+如果你的数据包中包含中国行政区，推荐像官方 `cnmaps-data` 一样按以下规则写入：
+
+- 一般中国行政区记录：`iso3 = CHN`
+- 香港特别行政区相关记录：`iso3 = HKG`
+- 澳门特别行政区相关记录：`iso3 = MAC`
+- 台湾相关记录：仍统一写作 `iso3 = CHN`
+
+这条规则不仅适用于国家级记录，也适用于中国的省 / 市 / 区县级记录。这样在做跨层级筛选、统计或后续联动查询时会更一致。
+
+如果第三方数据包希望与官方包保持一致，也建议在国家 / 地区级记录中显式写入 `iso3`，而不要只依赖 `path` 文件名表达代码。
 
 如果你的国外国家级数据需要与某一套中国边界口径配套使用，建议像官方 `world-countries` 一样，在写出 GeoJSON 前先执行一次针对中国边界的几何扣除，避免与中国边界产生重叠。
 

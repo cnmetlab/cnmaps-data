@@ -26,6 +26,7 @@ REQUIRED_DATASETS = {
 ADMIN_COLUMNS = (
     "id",
     "country",
+    "iso3",
     "province",
     "city",
     "district",
@@ -131,7 +132,11 @@ def _check_administrative_index(package_root: Path, manifest: dict, sample_limit
         if columns != ADMIN_COLUMNS:
             raise ValueError(f"ADMINISTRATIVE 表字段不符合要求: {columns}")
 
-        rows = list(cur.execute("SELECT id, path FROM ADMINISTRATIVE;"))
+        rows = list(
+            cur.execute(
+                "SELECT id, country, iso3, province, city, level, source, path FROM ADMINISTRATIVE;"
+            )
+        )
     finally:
         con.close()
 
@@ -139,13 +144,34 @@ def _check_administrative_index(package_root: Path, manifest: dict, sample_limit
         raise ValueError("ADMINISTRATIVE 表为空")
 
     seen_ids = set()
-    for idx, (row_id, relative_path) in enumerate(rows):
+    for idx, (row_id, country, iso3, province, city, level, source, relative_path) in enumerate(rows):
         if row_id in seen_ids:
             raise ValueError(f"ADMINISTRATIVE 表存在重复 id: {row_id}")
         seen_ids.add(row_id)
 
         if not relative_path:
             raise ValueError(f"ADMINISTRATIVE 表存在空 path: id={row_id}")
+
+        if source == "高德":
+            expected_iso3 = "CHN"
+            if province == "香港特别行政区" or city == "香港特别行政区":
+                expected_iso3 = "HKG"
+            elif province == "澳门特别行政区" or city == "澳门特别行政区":
+                expected_iso3 = "MAC"
+
+            if str(iso3 or "").upper() != expected_iso3:
+                raise ValueError(
+                    f"高德记录的 iso3 不符合要求: id={row_id}, country={country}, province={province}, "
+                    f"city={city}, level={level}, expected={expected_iso3}, actual={iso3}"
+                )
+
+        if level == "国" and source == "世界银行":
+            if not iso3:
+                raise ValueError(f"世界银行国家级记录缺少 iso3: id={row_id}, country={country}")
+            if Path(relative_path).stem.upper() != str(iso3).upper():
+                raise ValueError(
+                    f"世界银行国家级记录 iso3 与文件名不一致: id={row_id}, iso3={iso3}, path={relative_path}"
+                )
 
         geojson_path = _resolve_relative_geojson_path(administrative_root, relative_path)
         _check_geojson_file(geojson_path)
