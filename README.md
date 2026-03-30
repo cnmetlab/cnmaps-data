@@ -104,6 +104,8 @@
 - 因此，当 `amap` 的中国边界与世界银行的外国边界在中塔边境直接拼接时，会留下图中可见的一片空白区域。
 - 基于最小改动原则，`cnmaps-data` 目前对这一处仅做说明，不做额外人工填补或再分配处理。
 
+更多信息请参考维基百科：[中国—塔吉克斯坦边界](https://zh.wikipedia.org/zh-cn/%E4%B8%AD%E5%9B%BD%E2%80%94%E5%A1%94%E5%90%89%E5%85%8B%E6%96%AF%E5%9D%A6%E8%BE%B9%E7%95%8C)
+
 ## 与 cnmaps 的关系
 
 `cnmaps` 运行时会优先发现并使用已安装的数据 provider。对官方数据包来说，`cnmaps-data` 会通过 Python entry point 暴露 provider，`cnmaps` 安装后默认会把它作为依赖一起安装。
