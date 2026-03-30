@@ -16,6 +16,7 @@ exclude = ["**/.DS_Store"]
 
 [tool.poetry.dependencies]
 python = ">=3.9,<3.13"
+tqdm = "^4.67.1"
 
 [tool.poetry.group.dev.dependencies]
 flake8 = "^7.3.0"

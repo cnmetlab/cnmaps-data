@@ -11,6 +11,7 @@ from pathlib import Path
 import geopandas as gpd
 from shapely import snap
 from shapely.geometry import box, mapping, shape
+from tqdm import tqdm
 
 
 NEIGHBOR_COUNTRIES = {
@@ -123,13 +124,23 @@ def _build_adjusted_member_geometries(gdf: gpd.GeoDataFrame, china_claims_geom):
     snap_reference = china_claims_geom.simplify(SNAP_REFERENCE_SIMPLIFY_TOLERANCE, preserve_topology=True)
 
     adjusted = {row.shapeGroup: row.geometry for row in members.itertuples()}
-    for row in disputed.itertuples():
+    for row in tqdm(
+        disputed.itertuples(),
+        total=len(disputed),
+        desc="合并邻国争议区",
+        unit="feature",
+    ):
         target_iso3 = MANUAL_DISPUTED_ASSIGNMENTS.get(row.shapeGroup)
         if target_iso3 is None:
             continue
         adjusted[target_iso3] = adjusted[target_iso3].union(row.geometry)
 
-    for row in members.itertuples():
+    for row in tqdm(
+        members.itertuples(),
+        total=len(members),
+        desc="裁剪与吸附邻国边界",
+        unit="country",
+    ):
         geom = adjusted[row.shapeGroup]
         if _intersects_bounds(geom, china_bounds):
             near = geom.intersection(clip_window)
@@ -153,7 +164,12 @@ def _write_geojson_files(
     records = []
     for fp in output_dir.glob("*.geojson"):
         fp.unlink()
-    for iso3, country_cn in sorted(NEIGHBOR_COUNTRIES.items()):
+    for iso3, country_cn in tqdm(
+        sorted(NEIGHBOR_COUNTRIES.items()),
+        total=len(NEIGHBOR_COUNTRIES),
+        desc="写出邻国 GeoJSON",
+        unit="country",
+    ):
         geom = adjusted[iso3]
         if geom.is_empty:
             continue
@@ -191,16 +207,29 @@ def _update_index_db(package_root: Path, records: list[tuple[str, str, str]]) ->
     try:
         cur = con.cursor()
         cur.execute("DELETE FROM ADMINISTRATIVE WHERE source = ?", (SOURCE_NAME,))
+        rows = [
+            (
+                _build_row_id(country_name, path),
+                country_name,
+                path,
+                LEVEL_NAME,
+                SOURCE_NAME,
+                KIND_NAME,
+            )
+            for _, country_name, path in records
+        ]
         cur.executemany(
             """
             INSERT INTO ADMINISTRATIVE
             (id, country, province, city, district, path, level, source, kind)
             VALUES (?, ?, NULL, NULL, NULL, ?, ?, ?, ?)
             """,
-            [
-                (_build_row_id(country_name, path), country_name, path, LEVEL_NAME, SOURCE_NAME, KIND_NAME)
-                for _, country_name, path in records
-            ],
+            tqdm(
+                rows,
+                total=len(rows),
+                desc="写入邻国索引",
+                unit="row",
+            ),
         )
         con.commit()
     finally:
