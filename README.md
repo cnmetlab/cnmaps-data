@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="docs/assets/world-tech-globe-v4.png" alt="cnmaps-data globe" width="160" />
+  <img src="docs/assets/world-tech-globe-v4.png" alt="cnmaps-data globe" width="240" />
 </p>
 
 # cnmaps-data
