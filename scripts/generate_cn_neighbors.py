@@ -10,7 +10,8 @@ from pathlib import Path
 
 import geopandas as gpd
 from shapely import snap
-from shapely.geometry import mapping, shape
+from shapely.geometry import box, mapping, shape
+from tqdm import tqdm
 
 
 NEIGHBOR_COUNTRIES = {
@@ -30,16 +31,51 @@ NEIGHBOR_COUNTRIES = {
     "VNM": "越南",
 }
 
-MANUAL_DISPUTED_ASSIGNMENTS = {
-    "Jammu-Kashmir": "PAK",
-    "Aksai Chin": "IND",
-    "Arunachal Pradesh": "IND",
+WB_STATUS_MEMBER_LIKE = {
+    "Member State",
+    "Territory",
+    "Non Member State",
+    "Special Administrative Region",
 }
 
-SOURCE_NAME = "CN_NEIGHBORS"
+CHINA_RELATED_DISPUTED_ASSIGNMENTS = {
+    "Aksai Chin": "IND",
+    "Arunachal Pradesh": "IND",
+    "Chumar East": "IND",
+    "Chumar West": "IND",
+    "Demchok": "IND",
+    "Doklam": "BTN",
+    "Jadh Ganga Valley": "IND",
+    "Karakoram Range": "IND",
+    "Lapthal": "IND",
+    "Shipki Pass": "IND",
+}
+
+CHINA_DISPUTED_DEDUCTION_NAMES = set(CHINA_RELATED_DISPUTED_ASSIGNMENTS)
+
+SOURCE_NAME = "世界银行"
 KIND_NAME = "陆地"
 LEVEL_NAME = "国"
 SNAP_TOLERANCE = 1e-8
+CLIP_WINDOW_MARGIN = 2.0
+SNAP_REFERENCE_SIMPLIFY_TOLERANCE = 0.01
+PATH_PREFIX = "administrative/cn-neighbors/land/"
+
+
+def _intersects_bounds(geom, ref_bounds: tuple[float, float, float, float]) -> bool:
+    minx, miny, maxx, maxy = geom.bounds
+    rminx, rminy, rmaxx, rmaxy = ref_bounds
+    return not (maxx < rminx or maxy < rminy or minx > rmaxx or miny > rmaxy)
+
+
+def _build_clip_window(ref_bounds: tuple[float, float, float, float]):
+    minx, miny, maxx, maxy = ref_bounds
+    return box(
+        minx - CLIP_WINDOW_MARGIN,
+        miny - CLIP_WINDOW_MARGIN,
+        maxx + CLIP_WINDOW_MARGIN,
+        maxy + CLIP_WINDOW_MARGIN,
+    )
 
 
 def build_arg_parser() -> argparse.ArgumentParser:
@@ -71,28 +107,56 @@ def _ensure_output_dir(package_root: Path) -> Path:
 
 def _load_world(world_shp: Path) -> gpd.GeoDataFrame:
     gdf = gpd.read_file(world_shp)
-    return gdf[["iso3", "name", "status", "geometry"]].copy()
+    return gdf[["ISO_A3", "WB_STATUS", "SOVEREIGN", "NAM_0", "geometry"]].copy()
 
 
-def _build_adjusted_member_geometries(gdf: gpd.GeoDataFrame, china_geom):
-    members = gdf[gdf["status"] == "Member State"][["iso3", "name", "geometry"]].copy()
-    members = members[members["iso3"].notna()].copy()
-    members = members[members["iso3"] != "CHN"].copy()
+def _load_china_claims_geometry(gdf: gpd.GeoDataFrame, china_geom):
+    disputed = gdf[
+        (gdf["WB_STATUS"] == "Non-determined legal status area")
+        & (gdf["NAM_0"].isin(CHINA_DISPUTED_DEDUCTION_NAMES))
+    ].copy()
+    if disputed.empty:
+        return china_geom
+    return china_geom.union(disputed.geometry.union_all())
 
-    adjusted = {
-        row.iso3: snap(row.geometry, china_geom, SNAP_TOLERANCE).difference(china_geom)
-        for row in members.itertuples()
-    }
-    english_names = {row.iso3: row.name for row in members.itertuples()}
 
-    for disputed_name, target_iso3 in MANUAL_DISPUTED_ASSIGNMENTS.items():
-        disputed = gdf[gdf["name"] == disputed_name]
-        if disputed.empty:
+def _build_adjusted_member_geometries(gdf: gpd.GeoDataFrame, china_claims_geom):
+    members = gdf[gdf["WB_STATUS"].isin(WB_STATUS_MEMBER_LIKE)][["ISO_A3", "NAM_0", "geometry"]].copy()
+    members = members[members["ISO_A3"].isin(NEIGHBOR_COUNTRIES)].copy()
+    disputed = gdf[gdf["WB_STATUS"] == "Non-determined legal status area"][["NAM_0", "geometry"]].copy()
+    china_bounds = china_claims_geom.bounds
+    clip_window = _build_clip_window(china_bounds)
+    snap_reference = china_claims_geom.simplify(SNAP_REFERENCE_SIMPLIFY_TOLERANCE, preserve_topology=True)
+
+    adjusted = {row.ISO_A3: row.geometry for row in members.itertuples()}
+    for row in tqdm(
+        disputed.itertuples(),
+        total=len(disputed),
+        desc="合并邻国争议区",
+        unit="feature",
+    ):
+        target_iso3 = CHINA_RELATED_DISPUTED_ASSIGNMENTS.get(row.NAM_0)
+        if target_iso3 is None:
             continue
-        residual = snap(disputed.geometry.iloc[0], china_geom, SNAP_TOLERANCE).difference(china_geom)
-        if residual.is_empty:
-            continue
-        adjusted[target_iso3] = adjusted[target_iso3].union(residual)
+        adjusted[target_iso3] = adjusted[target_iso3].union(row.geometry)
+
+    for row in tqdm(
+        members.itertuples(),
+        total=len(members),
+        desc="裁剪与吸附邻国边界",
+        unit="country",
+    ):
+        geom = adjusted[row.ISO_A3]
+        if _intersects_bounds(geom, china_bounds):
+            near = geom.intersection(clip_window)
+            if near.is_empty:
+                adjusted[row.ISO_A3] = geom
+                continue
+            far = geom.difference(clip_window)
+            near = snap(near, snap_reference, SNAP_TOLERANCE).difference(china_claims_geom)
+            geom = far.union(near)
+        adjusted[row.ISO_A3] = geom
+    english_names = {row.ISO_A3: row.NAM_0 for row in members.itertuples()}
 
     return adjusted, english_names
 
@@ -103,7 +167,14 @@ def _write_geojson_files(
     english_names: dict,
 ) -> list[tuple[str, str]]:
     records = []
-    for iso3, country_cn in sorted(NEIGHBOR_COUNTRIES.items()):
+    for fp in output_dir.glob("*.geojson"):
+        fp.unlink()
+    for iso3, country_cn in tqdm(
+        sorted(NEIGHBOR_COUNTRIES.items()),
+        total=len(NEIGHBOR_COUNTRIES),
+        desc="写出邻国 GeoJSON",
+        unit="country",
+    ):
         geom = adjusted[iso3]
         if geom.is_empty:
             continue
@@ -130,8 +201,8 @@ def _write_geojson_files(
     return records
 
 
-def _build_row_id(country_name: str, path: str) -> str:
-    key = f"{country_name}|{LEVEL_NAME}|{SOURCE_NAME}|{KIND_NAME}|{path}"
+def _build_row_id(country_name: str, iso3: str, path: str) -> str:
+    key = f"{country_name}|{iso3}|{LEVEL_NAME}|{SOURCE_NAME}|{KIND_NAME}|{path}"
     return hashlib.md5(key.encode("utf-8")).hexdigest()
 
 
@@ -140,17 +211,31 @@ def _update_index_db(package_root: Path, records: list[tuple[str, str, str]]) ->
     con = sqlite3.connect(db_path)
     try:
         cur = con.cursor()
-        cur.execute("DELETE FROM ADMINISTRATIVE WHERE source = ?", (SOURCE_NAME,))
+        cur.execute("DELETE FROM ADMINISTRATIVE WHERE path LIKE ?", (f"{PATH_PREFIX}%",))
+        rows = [
+            (
+                _build_row_id(country_name, iso3, path),
+                country_name,
+                iso3,
+                path,
+                LEVEL_NAME,
+                SOURCE_NAME,
+                KIND_NAME,
+            )
+            for iso3, country_name, path in records
+        ]
         cur.executemany(
             """
             INSERT INTO ADMINISTRATIVE
-            (id, country, province, city, district, path, level, source, kind)
-            VALUES (?, ?, NULL, NULL, NULL, ?, ?, ?, ?)
+            (id, country, iso3, province, city, district, path, level, source, kind)
+            VALUES (?, ?, ?, NULL, NULL, NULL, ?, ?, ?, ?)
             """,
-            [
-                (_build_row_id(country_name, path), country_name, path, LEVEL_NAME, SOURCE_NAME, KIND_NAME)
-                for _, country_name, path in records
-            ],
+            tqdm(
+                rows,
+                total=len(rows),
+                desc="写入邻国索引",
+                unit="row",
+            ),
         )
         con.commit()
     finally:
@@ -166,7 +251,8 @@ def main() -> int:
 
     china_geom = _load_china_geometry(package_root)
     world_gdf = _load_world(world_shp)
-    adjusted, english_names = _build_adjusted_member_geometries(world_gdf, china_geom)
+    china_claims_geom = _load_china_claims_geometry(world_gdf, china_geom)
+    adjusted, english_names = _build_adjusted_member_geometries(world_gdf, china_claims_geom)
     output_dir = _ensure_output_dir(package_root)
     records = _write_geojson_files(output_dir, adjusted, english_names)
     _update_index_db(package_root, records)

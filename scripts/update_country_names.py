@@ -8,7 +8,7 @@ import sqlite3
 from pathlib import Path
 
 
-SOURCES = {"CN_NEIGHBORS", "WORLD_COUNTRIES"}
+SOURCE_NAME = "世界银行"
 
 
 def build_arg_parser() -> argparse.ArgumentParser:
@@ -55,11 +55,11 @@ def _update_index_db(package_root: Path, mapping_table: dict[str, dict[str, str]
     try:
         cur = con.cursor()
         rows = cur.execute(
-            "SELECT rowid, path, source FROM ADMINISTRATIVE WHERE source IN (?, ?)",
-            tuple(SOURCES),
+            "SELECT rowid, iso3, path FROM ADMINISTRATIVE WHERE source = ? AND path LIKE 'administrative/%/land/%.geojson'",
+            (SOURCE_NAME,),
         ).fetchall()
-        for rowid, path, source in rows:
-            iso3 = Path(path).stem.upper()
+        for rowid, iso3, path in rows:
+            iso3 = (iso3 or Path(path).stem).upper()
             mapping_info = mapping_table.get(iso3)
             if mapping_info is None:
                 continue
