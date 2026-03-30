@@ -20,7 +20,7 @@
   - 索引库：`cnmaps_data/data/index/administrative.db`
   - 数据根目录：`cnmaps_data/data/datasets/administrative/`
   - 当前包含：
-    - `amap`：高德来源的中国行政区边界
+    - `amap`：**高德**来源的中国省 / 市 / 县行政区边界（包内目录与索引字段 `source = 高德`；出处见「[数据来源](#数据来源)」）
     - `cn-neighbors`：基于中国官方口径边界与世界国界数据派生的邻国国家级边界
     - `world-countries`：除中国及 `cn-neighbors` 外的其他世界国家级边界
 - 地理边界数据
@@ -43,6 +43,15 @@
 - 它在写出前会统一扣除 `cnmaps-data` 当前中国边界所覆盖的几何区域，以避免与中国口径边界产生重叠。
 - 中文名映射表只是维护辅助资料；最终名称仍直接写入 SQLite 和 GeoJSON 产物中。
 - 除主权国家外，它现在也纳入了一批带 `iso3` 的海外领地/属地记录，例如格陵兰。
+
+## 数据来源
+
+行政区边界所依据的公开数据出处如下。仓库内几何与属性可能经过裁剪、拓扑处理、与中国边界做几何扣除或与中文名映射合并，以包内实际文件为准。
+
+- **中国省 / 市 / 县**：原始数据来自 **高德（Amap）**。独立对照与学术引用可使用 [GaryBikini/ChinaAdminDivisonSHP](https://github.com/GaryBikini/ChinaAdminDivisonSHP) **v2.0**（2021），Zenodo DOI [10.5281/zenodo.4167299](https://doi.org/10.5281/zenodo.4167299)。
+- **国外国家与地区（国界级）**：OpenDataSoft 数据集 [World Administrative Boundaries - Countries and Territories](https://public.opendatasoft.com/explore/dataset/world-administrative-boundaries/export/?flg=en-us)（门户内标识 `world-administrative-boundaries`，为全球 level 0 行政边界，含部分非主权领地）。
+
+`cn-neighbors` 与 `world-countries` 的中国一侧几何与 `amap` 一致，国外一侧基于上述世界国界数据派生，详见各小节说明。
 
 ## 与 cnmaps 的关系
 
@@ -77,6 +86,7 @@ pip install cnmaps
 
 - [开发者手册](docs/developer-guide.md)
 - [国家名称与 ISO3 映射表](docs/country-name-map.md)
+- [数据集覆盖范围索引](docs/dataset-index.md)
 
 这份文档里会说明：
 
@@ -92,6 +102,12 @@ pip install cnmaps
 
 ```bash
 python -m build
+```
+
+更新索引库后，若需同步更新文档中的省 / 市 / 县与国外名称列表，可执行：
+
+```bash
+python scripts/generate_dataset_index_docs.py
 ```
 
 如果需要重建 `cn-neighbors` 数据，可使用：
@@ -161,4 +177,5 @@ python -m cnmaps_data.checker /path/to/your-data-package/cnmaps_data
 ## 相关文档
 
 - [开发者手册](docs/developer-guide.md)
+- [数据集覆盖范围索引](docs/dataset-index.md)（省 / 市 / 县与国外名称列表，由索引库生成）
 - [更新日志](CHANGELOG.md)
