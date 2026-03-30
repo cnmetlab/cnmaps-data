@@ -7,7 +7,7 @@
 **原始数据出处**（与 [README 数据来源](../README.md#数据来源) 一致）：
 
 - **中国**：原始数据来自 **高德（Amap）**；独立对照与引用见 [GaryBikini/ChinaAdminDivisonSHP](https://github.com/GaryBikini/ChinaAdminDivisonSHP) v2.0（2021），DOI [10.5281/zenodo.4167299](https://doi.org/10.5281/zenodo.4167299)。下列列表对应索引中 `source = 高德`（目录 `amap`）的省 / 市 / 区县，不含全国与海域单条几何。
-- **国外**：[World Administrative Boundaries - Countries and Territories](https://public.opendatasoft.com/explore/dataset/world-administrative-boundaries/export/?flg=en-us)（`world-administrative-boundaries`）。下列名称为国界级记录（`level = 国`）。
+- **国外**：geoBoundaries **CGAZ ADM0**。下列名称为国界级记录（`level = 国`）。
 
 | 范围 | 说明 | 文档 |
 | --- | --- | --- |

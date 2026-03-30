@@ -4,7 +4,7 @@
 
 ## 数据来源
 
-国界级几何参考 OpenDataSoft 数据集 [World Administrative Boundaries - Countries and Territories](https://public.opendatasoft.com/explore/dataset/world-administrative-boundaries/export/?flg=en-us)（数据集标识 `world-administrative-boundaries`，为全球 level 0 行政边界，含部分非主权领地）。
+国界级几何当前参考 geoBoundaries 的 **CGAZ ADM0** 数据。仓库产物会在此基础上继续执行中国口径扣除、邻国吸附、争议岛屿扣除和中文名称同步。
 包内产物可能经过裁剪、与中国边界做几何扣除及中文名映射等处理。
 
 ## 索引说明

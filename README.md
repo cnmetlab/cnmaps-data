@@ -49,7 +49,7 @@
 行政区边界所依据的公开数据出处如下。仓库内几何与属性可能经过裁剪、拓扑处理、与中国边界做几何扣除或与中文名映射合并，以包内实际文件为准。
 
 - **中国省 / 市 / 县**：原始数据来自 **高德（Amap）**。独立对照与学术引用可使用 [GaryBikini/ChinaAdminDivisonSHP](https://github.com/GaryBikini/ChinaAdminDivisonSHP) **v2.0**（2021），Zenodo DOI [10.5281/zenodo.4167299](https://doi.org/10.5281/zenodo.4167299)。
-- **国外国家与地区（国界级）**：OpenDataSoft 数据集 [World Administrative Boundaries - Countries and Territories](https://public.opendatasoft.com/explore/dataset/world-administrative-boundaries/export/?flg=en-us)（门户内标识 `world-administrative-boundaries`，为全球 level 0 行政边界，含部分非主权领地）。
+- **国外国家与地区（国界级）**：geoBoundaries 数据集 **CGAZ ADM0**，用于提供全球国家级边界与争议区几何。仓库内的 `cn-neighbors` 与 `world-countries` 会在此基础上继续执行邻国吸附、中国口径扣除、争议岛屿扣除和中文名称回写。
 
 `cn-neighbors` 与 `world-countries` 的中国一侧几何与 `amap` 一致，国外一侧基于上述世界国界数据派生，详见各小节说明。
 
@@ -113,13 +113,13 @@ python scripts/generate_dataset_index_docs.py
 如果需要重建 `cn-neighbors` 数据，可使用：
 
 ```bash
-python scripts/generate_cn_neighbors.py --world-shp /path/to/world-administrative-boundaries.shp
+python scripts/generate_cn_neighbors.py --world-shp /path/to/geoBoundariesCGAZ_ADM0.shp
 ```
 
 如果需要生成其他世界国家级边界，可使用：
 
 ```bash
-python scripts/generate_world_countries.py --world-shp /path/to/world-administrative-boundaries.shp
+python scripts/generate_world_countries.py --world-shp /path/to/geoBoundariesCGAZ_ADM0.shp
 ```
 
 这个脚本会在输出 `world-countries` 前，先对每个国家执行一次基于中国边界的几何扣除。

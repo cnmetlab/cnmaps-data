@@ -10,7 +10,7 @@ from pathlib import Path
 
 import geopandas as gpd
 from shapely import snap
-from shapely.geometry import mapping
+from shapely.geometry import box, mapping
 from shapely.geometry import shape
 
 
@@ -18,10 +18,10 @@ SOURCE_NAME = "WORLD_COUNTRIES"
 LEVEL_NAME = "国"
 KIND_NAME = "陆地"
 SNAP_TOLERANCE = 1e-8
+CLIP_WINDOW_MARGIN = 2.0
+SNAP_REFERENCE_SIMPLIFY_TOLERANCE = 0.01
 EXCLUDED_ISO3 = {
     "CHN",
-    "HKG",
-    "MAC",
     "TWN",
     "AFG",
     "BTN",
@@ -38,6 +38,31 @@ EXCLUDED_ISO3 = {
     "TJK",
     "VNM",
 }
+
+CHINA_DISPUTED_DEDUCTION_NAMES = {
+    "Aksai Chin",
+    "CH-IN",
+    "Demchok",
+    "Paracel Is",
+    "Senkakus",
+    "Spratly Is",
+}
+
+
+def _intersects_bounds(geom, ref_bounds: tuple[float, float, float, float]) -> bool:
+    minx, miny, maxx, maxy = geom.bounds
+    rminx, rminy, rmaxx, rmaxy = ref_bounds
+    return not (maxx < rminx or maxy < rminy or minx > rmaxx or miny > rmaxy)
+
+
+def _build_clip_window(ref_bounds: tuple[float, float, float, float]):
+    minx, miny, maxx, maxy = ref_bounds
+    return box(
+        minx - CLIP_WINDOW_MARGIN,
+        miny - CLIP_WINDOW_MARGIN,
+        maxx + CLIP_WINDOW_MARGIN,
+        maxy + CLIP_WINDOW_MARGIN,
+    )
 
 
 def build_arg_parser() -> argparse.ArgumentParser:
@@ -74,20 +99,17 @@ def _build_row_id(country_name: str, path: str) -> str:
 
 def _load_member_states(world_shp: Path) -> gpd.GeoDataFrame:
     gdf = gpd.read_file(world_shp)
-    gdf = gdf[gdf["iso3"].notna()].copy()
-    gdf = gdf[~gdf["iso3"].isin(EXCLUDED_ISO3)].copy()
-    gdf = gdf[["iso3", "name", "status", "geometry"]].copy()
+    gdf = gdf[gdf["shapeType"] == "ADM0"].copy()
+    gdf = gdf[gdf["shapeGroup"].notna()].copy()
+    gdf = gdf[~gdf["shapeGroup"].isin(EXCLUDED_ISO3)].copy()
+    gdf = gdf[["shapeGroup", "shapeName", "geometry"]].copy()
     return _merge_by_iso3(gdf)
 
 
 def _merge_by_iso3(gdf: gpd.GeoDataFrame) -> gpd.GeoDataFrame:
     rows = []
-    for iso3, group in gdf.groupby("iso3", sort=True):
-        member_names = group.loc[group["status"] == "Member State", "name"].dropna().tolist()
-        if member_names:
-            display_name = member_names[0]
-        else:
-            display_name = sorted(group["name"].dropna().astype(str))[0]
+    for iso3, group in gdf.groupby("shapeGroup", sort=True):
+        display_name = sorted(group["shapeName"].dropna().astype(str))[0]
         rows.append(
             {
                 "iso3": iso3,
@@ -98,15 +120,41 @@ def _merge_by_iso3(gdf: gpd.GeoDataFrame) -> gpd.GeoDataFrame:
     return gpd.GeoDataFrame(rows, crs=gdf.crs)
 
 
-def _apply_china_difference(gdf: gpd.GeoDataFrame, china_geom) -> gpd.GeoDataFrame:
+def _load_china_claims_geometry(world_shp: Path, china_geom):
+    gdf = gpd.read_file(world_shp)[["shapeType", "shapeName", "geometry"]].copy()
+    disputed = gdf[
+        (gdf["shapeType"] == "DISP") & (gdf["shapeName"].isin(CHINA_DISPUTED_DEDUCTION_NAMES))
+    ].copy()
+    if disputed.empty:
+        return china_geom
+    return china_geom.union(disputed.geometry.union_all())
+
+
+def _apply_china_difference(gdf: gpd.GeoDataFrame, china_claims_geom) -> gpd.GeoDataFrame:
     gdf = gdf.copy()
-    gdf["geometry"] = [snap(geom, china_geom, SNAP_TOLERANCE).difference(china_geom) for geom in gdf.geometry]
+    china_bounds = china_claims_geom.bounds
+    clip_window = _build_clip_window(china_bounds)
+    snap_reference = china_claims_geom.simplify(SNAP_REFERENCE_SIMPLIFY_TOLERANCE, preserve_topology=True)
+    geometries = []
+    for geom in gdf.geometry:
+        if _intersects_bounds(geom, china_bounds):
+            near = geom.intersection(clip_window)
+            if near.is_empty:
+                geometries.append(geom)
+                continue
+            far = geom.difference(clip_window)
+            near = snap(near, snap_reference, SNAP_TOLERANCE).difference(china_claims_geom)
+            geom = far.union(near)
+        geometries.append(geom)
+    gdf["geometry"] = geometries
     gdf = gdf[~gdf.geometry.is_empty].copy()
     return gdf
 
 
 def _write_geojson(output_dir: Path, gdf: gpd.GeoDataFrame) -> list[tuple[str, str, str]]:
     records = []
+    for fp in output_dir.glob("*.geojson"):
+        fp.unlink()
     for row in gdf.itertuples():
         out_fp = output_dir / f"{row.iso3}.geojson"
         payload = {
@@ -159,8 +207,9 @@ def main() -> int:
     world_shp = Path(args.world_shp).expanduser().resolve()
 
     china_geom = _load_china_geometry(package_root)
+    china_claims_geom = _load_china_claims_geometry(world_shp, china_geom)
     gdf = _load_member_states(world_shp)
-    gdf = _apply_china_difference(gdf, china_geom)
+    gdf = _apply_china_difference(gdf, china_claims_geom)
     output_dir = _ensure_output_dir(package_root)
     records = _write_geojson(output_dir, gdf)
     _update_index_db(package_root, records)
