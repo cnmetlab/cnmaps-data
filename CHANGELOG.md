@@ -2,6 +2,12 @@
 
 `cnmaps-data` 的重要变更会记录在这里。
 
+## 1.1.2
+
+- Relax Python version constraints to avoid blocking future Python 3.x releases by default.
+- Move `tqdm` from runtime dependencies to development-only dependencies.
+- Expand CI coverage to Python 3.9-3.14 on Ubuntu, macOS, and Windows.
+
 ## 1.1.1
 
 - 切换国外国家级边界到世界银行官方边界源，并补充中国周边边界处理说明与示意图。
