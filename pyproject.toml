@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "cnmaps-data"
-version = "1.1.1"
+version = "1.1.2"
 description = "Official data package for cnmaps"
 authors = ["Clarmy <clarmyleewt@gmail.com>"]
 license = "MIT"
@@ -15,12 +15,12 @@ include = [
 exclude = ["**/.DS_Store"]
 
 [tool.poetry.dependencies]
-python = ">=3.9,<3.13"
-tqdm = "^4.67.1"
+python = ">=3.9"
 
 [tool.poetry.group.dev.dependencies]
 flake8 = "^7.3.0"
 build = "^1.4.2"
+tqdm = "^4.67.1"
 
 [tool.poetry.scripts]
 cnmaps-data-check = "cnmaps_data.checker:main"
