@@ -4,9 +4,9 @@
 
 ## 1.1.2
 
-- Relax Python version constraints to avoid blocking future Python 3.x releases by default.
-- Move `tqdm` from runtime dependencies to development-only dependencies.
-- Expand CI coverage to Python 3.9-3.14 on Ubuntu, macOS, and Windows.
+- 放宽 Python 版本约束，默认不再因为未来 Python 3.x 新版本发布而阻塞安装。
+- 将 `tqdm` 从运行时依赖调整为仅开发依赖，避免普通用户安装时引入不必要的额外依赖。
+- 将 CI 扩展为在 Ubuntu、macOS、Windows 上覆盖 Python 3.9-3.14。
 
 ## 1.1.1
 
